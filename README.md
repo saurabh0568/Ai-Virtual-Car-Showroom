@@ -30,12 +30,16 @@ responsible for seeking clarifications as needed without making unauthorized cha
 
 A) Car Customization: Users can personalize their selected vehicle, including choosing color, 
 wheels, and additional accessories. 
+
 B) AI-Powered Recommendations: The system uses machine learning algorithms to analyze user 
 inputs such as preferences, budget, and lifestyle to recommend car models that best fit their 
 needs. 
+
 C) Virtual Salesman Chatbot: An AI-driven chatbot assists users in real-time by answering 
 questions about car features, technical specifications, pricing, financing options, and more. 
+
 D) Multi-User Experience: Users can invite friends or family members to join them in the virtual 
 showroom, supporting real-time collaboration. 
+
 E) Admin Panel: Showroom managers can manage inventory, track sales in real-time, view 
 customer interaction data, and manage customer feedback.
