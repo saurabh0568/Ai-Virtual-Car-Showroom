@@ -1,5 +1,7 @@
 AI Virtual Car Showroom 
+
 1 Abstract 
+
 AI Virtual Car Showroom is a digital platform that enhances the car-buying experience through 
 interactive and AI-driven features. It allows users to receive personalized recommendations 
 based on their preferences and budget. An AI-powered virtual salesman chatbot assists users by 
@@ -10,12 +12,14 @@ allows showroom managers to efficiently manage the virtual car showroom, ensurin
 and engaging experience for both buyers and sellers. 
 
 2 Purpose 
+
 This document outlines the external requirements for an AI-powered Virtual Car Showroom, 
 providing an interactive platform for users to explore, compare, and customize cars. It leverages 
 AI for personalized recommendations and integrates with car databases, payment systems, and 
 customer support to offer a seamless user experience. 
 
 3 Scope 
+
 This document outlines the scope of an AI-driven virtual car showroom, detailing its core 
 functionalities and objectives. The system is designed to offer an immersive, interactive, and 
 intelligent car-buying experience by leveraging AI and advanced technologies. Any future 
@@ -23,6 +27,7 @@ modifications to these requirements must undergo a formal approval process, and 
 responsible for seeking clarifications as needed without making unauthorized changes.
 
 4 Product Functions Overview 
+
 A) Car Customization: Users can personalize their selected vehicle, including choosing color, 
 wheels, and additional accessories. 
 B) AI-Powered Recommendations: The system uses machine learning algorithms to analyze user 
