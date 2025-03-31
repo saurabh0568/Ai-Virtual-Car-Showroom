@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Customization & Prediction</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="customization.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-car"></i> Car Customization</h1>
+        </header>
+        
+        <div class="content">
+            <div class="left-section">
+                <div class="car-image-container">
+                    <img id="car-image" src="/api/placeholder/400/250" alt="Car Image">
+                </div>
+                
+                <div class="selection-summary">
+                    <h3>Your Selections</h3>
+                    <div id="selection-tags" class="selection-tags">
+                        <div class="selection-tag"><i class="fas fa-info-circle"></i> Select options to begin</div>
+                    </div>
+                </div>
+                
+                <div id="result-container" class="result-container" style="display: none;">
+                    <h3>Prediction Results</h3>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="label">Fuel Efficiency</div>
+                            <div id="fuel-efficiency" class="value">--</div>
+                            <div class="unit">km/l</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="label">Safety Rating</div>
+                            <div id="safety-rating" class="value">--</div>
+                            <div class="unit">out of 5</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="label">Price</div>
+                            <div id="price" class="value">--</div>
+                            <div class="unit">USD</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="label">Comfort Rating</div>
+                            <div id="comfort-rating" class="value">--</div>
+                            <div class="unit">out of 10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-section">
+                <div class="categories-container">
+                    <div class="category" data-category="Car_Brand">
+                        <h3>Car Brand</h3>
+                        <div class="options">
+                            <div class="option" data-value="Ford">
+                                <img src="/api/placeholder/40/40" alt="Ford">
+                                <span>Ford</span>
+                            </div>
+                            <div class="option" data-value="BMW">
+                                <img src="/api/placeholder/40/40" alt="BMW">
+                                <span>BMW</span>
+                            </div>
+                            <div class="option" data-value="Mercedes">
+                                <img src="/api/placeholder/40/40" alt="Mercedes">
+                                <span>Mercedes</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Model">
+                        <h3>Model</h3>
+                        <div class="options">
+                            <div class="option" data-value="Mustang">
+                                <img src="/api/placeholder/40/40" alt="Mustang">
+                                <span>Mustang</span>
+                            </div>
+                            <div class="option" data-value="3 Series">
+                                <img src="/api/placeholder/40/40" alt="3 Series">
+                                <span>3 Series</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Engine_Type">
+                        <h3>Engine Type</h3>
+                        <div class="options">
+                            <div class="option" data-value="Petrol">
+                                <img src="/api/placeholder/40/40" alt="Petrol">
+                                <span>Petrol</span>
+                            </div>
+                            <div class="option" data-value="Diesel">
+                                <img src="/api/placeholder/40/40" alt="Diesel">
+                                <span>Diesel</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Driving_Condition">
+                        <h3>Driving Condition</h3>
+                        <div class="options">
+                            <div class="option" data-value="Urban">
+                                <img src="/api/placeholder/40/40" alt="Urban">
+                                <span>Urban</span>
+                            </div>
+                            <div class="option" data-value="Heavy Traffic">
+                                <img src="/api/placeholder/40/40" alt="Heavy Traffic">
+                                <span>Heavy Traffic</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Road_Type">
+                        <h3>Road Type</h3>
+                        <div class="options">
+                            <div class="option" data-value="Highway">
+                                <img src="/api/placeholder/40/40" alt="Highway">
+                                <span>Highway</span>
+                            </div>
+                            <div class="option" data-value="City streets">
+                                <img src="/api/placeholder/40/40" alt="City streets">
+                                <span>City streets</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Weather_Condition">
+                        <h3>Weather Condition</h3>
+                        <div class="options">
+                            <div class="option" data-value="Rainy">
+                                <img src="/api/placeholder/40/40" alt="Rainy">
+                                <span>Rainy</span>
+                            </div>
+                            <div class="option" data-value="Clear">
+                                <img src="/api/placeholder/40/40" alt="Clear">
+                                <span>Clear</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Driver_Experience">
+                        <h3>Driver Experience</h3>
+                        <div class="options">
+                            <div class="option" data-value="Novice">
+                                <img src="/api/placeholder/40/40" alt="Novice">
+                                <span>Novice</span>
+                            </div>
+                            <div class="option" data-value="Expert">
+                                <img src="/api/placeholder/40/40" alt="Expert">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-area">
+                    <button id="predictButton"><i class="fas fa-calculator"></i> Generate Prediction</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="customization.js"></script>
+       
+</body>
+</html>
