@@ -28,18 +28,32 @@ responsible for seeking clarifications as needed without making unauthorized cha
 
 4 Product Functions Overview 
 
-A) Car Customization: Users can personalize their selected vehicle, including choosing color, 
-wheels, and additional accessories. 
+The AI Virtual Car Showroom covers the following functionalities: 
+A) 3D Car Viewing: Users can visualize cars from multiple angles with detailed 
+rendering. 
 
-B) AI-Powered Recommendations: The system uses machine learning algorithms to analyze user 
-inputs such as preferences, budget, and lifestyle to recommend car models that best fit their 
-needs. 
+B) Customization: Allows modification of car features such as colour, wheels, 
+and interiors and it will evaluate its performance. 
 
-C) Virtual Salesman Chatbot: An AI-driven chatbot assists users in real-time by answering 
-questions about car features, technical specifications, pricing, financing options, and more. 
+C) Recommendation System: Provides personalized car suggestions based on 
+the user's budget, preferences, and driving needs. 
 
-D) Multi-User Experience: Users can invite friends or family members to join them in the virtual 
-showroom, supporting real-time collaboration. 
+D) Multi-User Discussion: Real-time chat feature enabling buyers to discuss with 
+other users. 
 
-E) Admin Panel: Showroom managers can manage inventory, track sales in real-time, view 
-customer interaction data, and manage customer feedback.
+E) AI Chatbot Salesman: AI-powered assistant to answer queries, provide car 
+details, and has full control on website.
+
+F) Car Comparison: Side-by-side comparison of multiple cars based on 
+specifications and prices. 
+
+G) Booking and Payments: Users can book cars, schedule test drives, and make 
+payments through integrated gateways. 
+
+H) Admin Panel: Admins can manage car listings, dealers, and customer queries. 
+
+I) Car Recognition: Users can upload car images, and the platform provides 
+information such as model, year, and specifications. 
+
+j) Wishlist and Favourites: Users can save their preferred cars for future 
+reference.
