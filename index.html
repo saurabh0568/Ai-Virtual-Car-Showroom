@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Car Showroom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="front.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-car"></i>
+                Premium Cars
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Models</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Dealers</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Experience Luxury Driving</h1>
+            <p>Discover our exclusive collection of premium vehicles crafted for performance and elegance</p>
+            <a href="#" class="btn">Explore Models</a>
+        </div>
+    </section>
+
+    <main>
+        <h2 class="section-title">Our Featured Models</h2>
+        
+        <div class="container">
+            <aside>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search models...">
+                </div>
+                
+                <h3>Filter Options</h3>
+                
+                <div class="filter-group">
+                    <h4>Vehicle Type</h4>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="checkbox"> SUV
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Sedan
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Coupe
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Convertible
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Brand</h4>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="checkbox"> BMW
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Mercedes
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Audi
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Lexus
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="checkbox"> Under $50,000
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> $50,000 - $100,000
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> $100,000+
+                        </label>
+                    </div>
+                </div>
+                
+                <a href="#" class="btn btn-sm" style="width: 100%; text-align: center;">Apply Filters</a>
+            </aside>
+            
+            <div class="car-grid">
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/400/250" alt="BMW X5">
+                        <div class="car-badge">New</div>
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">BMW X5</h3>
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Diesel</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-cog"></i>
+                                <span>Automatic</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-road"></i>
+                                <span>SUV</span>
+                            </div>
+                        </div>
+                        <div class="car-price">$65,000</div>
+                        <div class="car-actions">
+                            <button class="btn btn-sm" onclick="showDetails('BMW X5')">View Details</button>
+                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/400/250" alt="Mercedes C-Class">
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">Mercedes C-Class</h3>
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Petrol</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-cog"></i>
+                                <span>Automatic</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-road"></i>
+                                <span>Sedan</span>
+                            </div>
+                        </div>
+                        <div class="car-price">$48,500</div>
+                        <div class="car-actions">
+                            <button class="btn btn-sm" onclick="showDetails('Mercedes C-Class')">View Details</button>
+                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/400/250" alt="Audi Q7">
+                        <div class="car-badge">Featured</div>
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">Audi Q7</h3>
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Hybrid</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-cog"></i>
+                                <span>Automatic</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-road"></i>
+                                <span>SUV</span>
+                            </div>
+                        </div>
+                        <div class="car-price">$71,200</div>
+                        <div class="car-actions">
+                            <button class="btn btn-sm" onclick="showDetails('Audi Q7')">View Details</button>
+                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/400/250" alt="Lexus ES">
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">Lexus ES</h3>
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Petrol</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-cog"></i>
+                                <span>Automatic</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-road"></i>
+                                <span>Sedan</span>
+                            </div>
+                        </div>
+                        <div class="car-price">$52,800</div>
+                        <div class="car-actions">
+                            <button class="btn btn-sm" onclick="showDetails('Lexus ES')">View Details</button>
+                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div class="chatbot">
+        <a href="chat.html">
+        <i class="fas fa-comments"></i>
+        </a>
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Premium Cars</h3>
+                <p>Experience luxury and performance with our exclusive collection of high-end vehicles from the world's most prestigious manufacturers.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Models</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Dealers</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Car Purchase</a></li>
+                    <li><a href="#">Financing Options</a></li>
+                    <li><a href="#">Maintenance</a></li>
+                    <li><a href="#">Extended Warranty</a></li>
+                    <li><a href="#">Car Insurance</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p>Helpline: +91 9909861059</p>
+                            <p>Mon-Sat: 9:00 AM - 8:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p>info@premiumcars.com</p>
+                            <p>support@premiumcars.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p>123 Luxury Lane, Automobile District</p>
+                            <p>Premium City, PC 12345</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Premium Cars. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showDetails(carType) {
+            alert("Showing details for " + carType);
+        }
+        
+        function chatBot() {
+            alert("Our support team is ready to assist you. This feature will be available soon!");
+        }
+    </script>
+</body>
+</html>
