@@ -1,65 +1,69 @@
-// Function to show car details
-    function showDetails(carType) {
-        alert("Showing details for " + carType);
-    }
+document.addEventListener("DOMContentLoaded", function () {
+            const filters = document.querySelectorAll(".filter-option input");
+            const carCards = document.querySelectorAll(".car-card");
+            const searchBox = document.querySelector(".search-box input");
 
-    // Function to filter cars based on selected options
-    function filterCars() {
-        // Get selected filters
-        let selectedVehicleTypes = [];
-        let selectedBrands = [];
-        let selectedPriceRanges = [];
-
-        // Capture the vehicle types
-        document.querySelectorAll('.filter-group:nth-child(1) input:checked').forEach(function (checkbox) {
-            selectedVehicleTypes.push(checkbox.nextElementSibling.textContent.trim());
-        });
-
-        // Capture the brands
-        document.querySelectorAll('.filter-group:nth-child(2) input:checked').forEach(function (checkbox) {
-            selectedBrands.push(checkbox.nextElementSibling.textContent.trim());
-        });
-
-        // Capture the price ranges
-        document.querySelectorAll('.filter-group:nth-child(3) input:checked').forEach(function (checkbox) {
-            selectedPriceRanges.push(checkbox.nextElementSibling.textContent.trim());
-        });
-
-        // Filter the cars based on selected filters
-        const allCars = document.querySelectorAll('.car-card');
-        allCars.forEach(function (car) {
-            const carType = car.querySelector('.car-spec span:nth-child(3)').textContent.trim();
-            const brand = car.querySelector('.car-title').textContent.trim();
-            const price = parseFloat(car.querySelector('.car-price').textContent.replace('$', '').replace(',', '').trim());
-
-            let isMatch = true;
-
-            // Filter by vehicle type
-            if (selectedVehicleTypes.length > 0 && !selectedVehicleTypes.includes(carType)) {
-                isMatch = false;
-            }
-
-            // Filter by brand
-            if (selectedBrands.length > 0 && !selectedBrands.includes(brand)) {
-                isMatch = false;
-            }
-
-            // Filter by price range
-            if (selectedPriceRanges.length > 0) {
-                let priceRangeMatch = false;
-                selectedPriceRanges.forEach(function (range) {
-                    if (range === 'Under $50,000' && price < 50000) priceRangeMatch = true;
-                    if (range === '$50,000 - $100,000' && price >= 50000 && price <= 100000) priceRangeMatch = true;
-                    if (range === '$100,000+' && price > 100000) priceRangeMatch = true;
+            function applyFilters() {
+                const selectedFilters = {
+                    vehicleType: [],
+                    brand: [],
+                    priceRange: []
+                };
+                
+                filters.forEach(filter => {
+                    if (filter.checked) {
+                        const category = filter.closest(".filter-group").querySelector("h4").textContent.trim();
+                        if (category === "Vehicle Type") {
+                            selectedFilters.vehicleType.push(filter.nextSibling.textContent.trim());
+                        } else if (category === "Brand") {
+                            selectedFilters.brand.push(filter.nextSibling.textContent.trim());
+                        } else if (category === "Price Range") {
+                            selectedFilters.priceRange.push(filter.nextSibling.textContent.trim());
+                        }
+                    }
                 });
-                if (!priceRangeMatch) isMatch = false;
+
+                carCards.forEach(card => {
+                    const carType = card.querySelector(".car-specs .car-spec:nth-child(3) span").textContent;
+                    const carBrand = card.querySelector(".car-title").textContent.split(" ")[0];
+                    const carPrice = parseInt(card.querySelector(".car-price").textContent.replace(/[^0-9]/g, ""));
+                    
+                    let showCard = true;
+                    
+                    if (selectedFilters.vehicleType.length && !selectedFilters.vehicleType.includes(carType)) {
+                        showCard = false;
+                    }
+                    if (selectedFilters.brand.length && !selectedFilters.brand.includes(carBrand)) {
+                        showCard = false;
+                    }
+                    if (selectedFilters.priceRange.length) {
+                        const priceFilter = selectedFilters.priceRange;
+                        if (priceFilter.includes("Under $50,000") && carPrice >= 50000) showCard = false;
+                        if (priceFilter.includes("$50,000 - $100,000") && (carPrice < 50000 || carPrice > 100000)) showCard = false;
+                        if (priceFilter.includes("$100,000+") && carPrice <= 100000) showCard = false;
+                    }
+                    
+                    card.style.display = showCard ? "block" : "none";
+                });
             }
 
-            // Show or hide the car based on the filter
-            if (isMatch) {
-                car.style.display = 'block';
-            } else {
-                car.style.display = 'none';
-            }
+            filters.forEach(filter => {
+                filter.addEventListener("change", applyFilters);
+            });
+            
+            searchBox.addEventListener("input", function () {
+                const query = this.value.toLowerCase();
+                carCards.forEach(card => {
+                    const carName = card.querySelector(".car-title").textContent.toLowerCase();
+                    card.style.display = carName.includes(query) ? "block" : "none";
+                });
+            });
         });
-    }
+
+        function showDetails(carType) {
+            alert("Showing details for " + carType);
+        }
+        
+        function chatBot() {
+            alert("Our support team is ready to assist you. This feature will be available soon!");
+        }
