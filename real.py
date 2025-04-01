@@ -1,5 +1,5 @@
 import google.generativeai as ai
-API_KEY='AIzaSyDryvfzmXv0MzjBN3myX3O6fyGgp3QJrTc'
+API_KEY=''
 ai.configure(api_key=API_KEY)
 model= ai.GenerativeModel("gemini-1.5-pro")
 chat= model.start_chat()
