@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Car Showroom</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+    <link rel="stylesheet" href="lobby.css">
+</head>
+<body>
+    <h1>🚗 Car Showroom</h1>
+
+    <label for="roomInput">Enter Room ID:</label>
+    <input type="text" id="roomInput" placeholder="Room ID">
+    <button onclick="joinRoom()">Join</button>
+    <button onclick="leaveRoom()">Leave</button>
+
+    <h3>Filter Cars:</h3>
+    <select id="filterSelect">
+        <option value="all">All Cars</option>
+        <option value="suv">SUV</option>
+        <option value="sedan">Sedan</option>
+        <option value="electric">Electric</option>
+    </select>
+
+    <div id="showroom">
+        <div class="car-item" id="car1" onclick="selectCar('car1')">🚗 Car 1</div>
+        <div class="car-item" id="car2" onclick="selectCar('car2')">🚙 Car 2</div>
+        <div class="car-item" id="car3" onclick="selectCar('car3')">🚘 Car 3</div>
+    </div>
+
+    <script src="lobby.js"></script>
+</body>
+</html>
