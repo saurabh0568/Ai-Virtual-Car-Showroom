@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Showroom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .modal-content button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .modal-content button:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+            display: none;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Login</h2>
+            
+            <div id="errorMessage" class="error-message"></div>
+            
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            
+            <div id="signupFields" style="display:none;">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            
+            <button id="submitButton" onclick="handleSubmit()">Login</button>
+            
+            <p id="switchForm">
+                Don't have an account? 
+                <a href="#" onclick="toggleForm()">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let isLoginForm = true;
+
+        function openModal() {
+            document.getElementById("authModal").style.display = "block";
+            resetForm();
+        }
+
+        function closeModal() {
+            document.getElementById("authModal").style.display = "none";
+        }
+
+        function resetForm() {
+            // Reset form to login state
+            isLoginForm = true;
+            document.getElementById("modalTitle").textContent = "Login";
+            document.getElementById("submitButton").textContent = "Login";
+            document.getElementById("signupFields").style.display = "none";
+            document.getElementById("switchForm").innerHTML = 
+                'Don\'t have an account? <a href="#" onclick="toggleForm()">Sign Up</a>';
+            
+            // Clear inputs
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+            document.getElementById("errorMessage").style.display = "none";
+            
+            // Reset signup-specific fields
+            if (document.getElementById("confirmPassword")) {
+                document.getElementById("confirmPassword").value = "";
+            }
+            if (document.getElementById("email")) {
+                document.getElementById("email").value = "";
+            }
+        }
+
+        function toggleForm() {
+            isLoginForm = !isLoginForm;
+            
+            const signupFields = document.getElementById("signupFields");
+            const modalTitle = document.getElementById("modalTitle");
+            const submitButton = document.getElementById("submitButton");
+            const switchForm = document.getElementById("switchForm");
+            
+            if (isLoginForm) {
+                modalTitle.textContent = "Login";
+                submitButton.textContent = "Login";
+                signupFields.style.display = "none";
+                switchForm.innerHTML = 'Don\'t have an account? <a href="#" onclick="toggleForm()">Sign Up</a>';
+            } else {
+                modalTitle.textContent = "Sign Up";
+                submitButton.textContent = "Create Account";
+                signupFields.style.display = "block";
+                switchForm.innerHTML = 'Already have an account? <a href="#" onclick="toggleForm()">Login</a>';
+            }
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById("errorMessage");
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+        }
+
+        function validateInputs() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+
+            if (username.length < 3) {
+                showError("Username must be at least 3 characters long");
+                return false;
+            }
+
+            if (password.length < 6) {
+                showError("Password must be at least 6 characters long");
+                return false;
+            }
+
+            // Additional signup validation
+            if (!isLoginForm) {
+                const confirmPassword = document.getElementById("confirmPassword").value;
+                const email = document.getElementById("email").value.trim();
+
+                if (password !== confirmPassword) {
+                    showError("Passwords do not match");
+                    return false;
+                }
+
+                // Basic email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showError("Please enter a valid email address");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        async function handleSubmit() {
+            // Clear previous error messages
+            document.getElementById("errorMessage").style.display = "none";
+
+            // Validate inputs
+            if (!validateInputs()) {
+                return;
+            }
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                if (isLoginForm) {
+                    // Login logic
+                    const response = await fetch('http://127.0.0.1:8000/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Successful login
+                        localStorage.setItem('token', data.token);
+                        window.location.href = "home.html";
+                    } else {
+                        // Login failed
+                        showError(data.message || "Login failed");
+                    }
+                } else {
+                    // Signup logic
+                    const email = document.getElementById("email").value;
+                    const confirmPassword = document.getElementById("confirmPassword").value;
+
+                    const response = await fetch('http://127.0.0.1:8000/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            username, 
+                            password, 
+                            email,
+                            confirm_password: confirmPassword 
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Successful signup
+                        alert("Account created successfully! Please log in.");
+                        toggleForm(); // Switch back to login form
+                    } else {
+                        // Signup failed
+                        showError(data.message || "Signup failed");
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError("Network error. Please try again.");
+            }
+        }
+
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            const modal = document.getElementById("authModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

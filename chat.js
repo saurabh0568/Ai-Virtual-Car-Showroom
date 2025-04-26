@@ -126,7 +126,7 @@ const ws = new WebSocket("ws://localhost:8000/ws");
             }
             
             getWelcomeMessage() {
-            return "Welcome to our Virtual Car Showroom! I can help you explore our vehicle lineup, discuss financing options, or answer questions about the buying process. What type of vehicle are you interested in today? We have sedans, SUVs, and electric vehicles available.";
+            return "Welcome to our S2 CarHub! I can help you explore our vehicle lineup, discuss financing options, or answer questions about the buying process. What type of vehicle are you interested in today? We have sedans, SUVs, and electric vehicles available.";
             }
             
             getCarTypeInfo(type) {

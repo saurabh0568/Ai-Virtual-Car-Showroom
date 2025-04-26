@@ -3,297 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Car Showroom</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="front.css">
+    <title>Car Customization & Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 90%;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+        }
+        .left-section {
+            width: 50%;
+            text-align: center;
+        }
+        .left-section img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+        .right-section {
+            width: 50%;
+            padding: 20px;
+        }
+        .category {
+            margin-bottom: -50px;
+        }
+        .category h3 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .option {
+            text-align: center;
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid transparent;
+            transition: border 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .option.selected {
+            border: 2px solid blue;
+        }
+        .option img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background: gray;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="navbar">
-            <a href="#" class="logo">
-                <i class="fas fa-car"></i>
-                Premium Cars
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Models</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Dealers</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
+    <div class="container">
+        <div class="left-section">
+            <img id="car-image" src="default-car.jpg" alt="Car Image">
         </div>
-    </header>
-
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Experience Luxury Driving</h1>
-            <p>Discover our exclusive collection of premium vehicles crafted for performance and elegance</p>
-            <a href="customization.html" class="btn">Customize Models</a>
-        </div>
-    </section>
-
-    <main>
-        <h2 class="section-title">Our Featured Models</h2>
-        
-        <div class="container">
-            <aside>
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search models...">
-                </div>
-                
-                <h3>Filter Options</h3>
-                
-                <div class="filter-group">
-                    <h4>Vehicle Type</h4>
-                    <div class="filter-options">
-                        <label class="filter-option">
-                            <input type="checkbox"> SUV
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox"> Sedan
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox"> Coupe
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox"> Convertible
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="filter-group">
-                    <h4>Brand</h4>
-                    <div class="filter-options">
-                        <label class="filter-option">
-                            <input type="checkbox"> BMW
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox"> Mercedes
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox"> Audi
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox"> Lexus
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="filter-group">
-                    <h4>Price Range</h4>
-                    <div class="filter-options">
-                        <label class="filter-option">
-                            <input type="checkbox"> Under $50,000
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox"> $50,000 - $100,000
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox"> $100,000+
-                        </label>
-                    </div>
-                </div>
-                
-                <a href="#" class="btn btn-sm" style="width: 100%; text-align: center;">Apply Filters</a>
-            </aside>
+        <div class="right-section">
+            <h2>Car Customization & Prediction</h2>
             
-            <div class="car-grid">
-                <div class="car-card">
-                    <div class="car-image">
-                        <img src="/api/placeholder/400/250" alt="BMW X5">
-                        <div class="car-badge">New</div>
-                    </div>
-                    <div class="car-details">
-                        <h3 class="car-title">BMW X5</h3>
-                        <div class="car-specs">
-                            <div class="car-spec">
-                                <i class="fas fa-gas-pump"></i>
-                                <span>Diesel</span>
-                            </div>
-                            <div class="car-spec">
-                                <i class="fas fa-cog"></i>
-                                <span>Automatic</span>
-                            </div>
-                            <div class="car-spec">
-                                <i class="fas fa-road"></i>
-                                <span>SUV</span>
-                            </div>
-                        </div>
-                        <div class="car-price">$65,000</div>
-                        <div class="car-actions">
-                            <button class="btn btn-sm" onclick="showDetails('BMW X5')">View Details</button>
-                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="car-card">
-                    <div class="car-image">
-                        <img src="/api/placeholder/400/250" alt="Mercedes C-Class">
-                    </div>
-                    <div class="car-details">
-                        <h3 class="car-title">Mercedes C-Class</h3>
-                        <div class="car-specs">
-                            <div class="car-spec">
-                                <i class="fas fa-gas-pump"></i>
-                                <span>Petrol</span>
-                            </div>
-                            <div class="car-spec">
-                                <i class="fas fa-cog"></i>
-                                <span>Automatic</span>
-                            </div>
-                            <div class="car-spec">
-                                <i class="fas fa-road"></i>
-                                <span>Sedan</span>
-                            </div>
-                        </div>
-                        <div class="car-price">$48,500</div>
-                        <div class="car-actions">
-                            <button class="btn btn-sm" onclick="showDetails('Mercedes C-Class')">View Details</button>
-                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="car-card">
-                    <div class="car-image">
-                        <img src="/api/placeholder/400/250" alt="Audi Q7">
-                        <div class="car-badge">Featured</div>
-                    </div>
-                    <div class="car-details">
-                        <h3 class="car-title">Audi Q7</h3>
-                        <div class="car-specs">
-                            <div class="car-spec">
-                                <i class="fas fa-gas-pump"></i>
-                                <span>Hybrid</span>
-                            </div>
-                            <div class="car-spec">
-                                <i class="fas fa-cog"></i>
-                                <span>Automatic</span>
-                            </div>
-                            <div class="car-spec">
-                                <i class="fas fa-road"></i>
-                                <span>SUV</span>
-                            </div>
-                        </div>
-                        <div class="car-price">$71,200</div>
-                        <div class="car-actions">
-                            <button class="btn btn-sm" onclick="showDetails('Audi Q7')">View Details</button>
-                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="car-card">
-                    <div class="car-image">
-                        <img src="/api/placeholder/400/250" alt="Lexus ES">
-                    </div>
-                    <div class="car-details">
-                        <h3 class="car-title">Lexus ES</h3>
-                        <div class="car-specs">
-                            <div class="car-spec">
-                                <i class="fas fa-gas-pump"></i>
-                                <span>Petrol</span>
-                            </div>
-                            <div class="car-spec">
-                                <i class="fas fa-cog"></i>
-                                <span>Automatic</span>
-                            </div>
-                            <div class="car-spec">
-                                <i class="fas fa-road"></i>
-                                <span>Sedan</span>
-                            </div>
-                        </div>
-                        <div class="car-price">$52,800</div>
-                        <div class="car-actions">
-                            <button class="btn btn-sm" onclick="showDetails('Lexus ES')">View Details</button>
-                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
-                        </div>
-                    </div>
+            <div class="category" data-category="Car_Brand">
+                <h3>Car Brand</h3>
+                <div class="options">
+                    <div class="option" data-value="Ford"><img src="ford.jpg" alt="Ford"><span>Ford</span></div>
+                    <div class="option" data-value="BMW"><img src="bmw.jpg" alt="BMW"><span>BMW</span></div>
+                    <div class="option" data-value="Mercedes"><img src="mercedes.jpg" alt="Mercedes"><span>Mercedes</span></div>
                 </div>
             </div>
+
+            <div class="category" data-category="Model">
+                <h3>Model</h3>
+                <div class="options">
+                    <div class="option" data-value="Mustang"><img src="mustang.jpg" alt="Mustang"><span>Mustang</span></div>
+                    <div class="option" data-value="3 Series"><img src="3series.jpg" alt="3 Series"><span>3 Series</span></div>
+                </div>
+            </div>
+
+            <div class="category" data-category="Engine_Type">
+                <h3>Engine Type</h3>
+                <div class="options">
+                    <div class="option" data-value="Petrol"><img src="petrol.jpg" alt="Petrol"><span>Petrol</span></div>
+                    <div class="option" data-value="Diesel"><img src="diesel.jpg" alt="Diesel"><span>Diesel</span></div>
+                </div>
+            </div>
+
+            <div class="category" data-category="Driving_Condition">
+                <h3>Driving_Condition</h3>
+                <div class="options">
+                    <div class="option" data-value="Urban"><img src="petrol.jpg" alt="Urban"><span>Urban</span></div>
+                    <div class="option" data-value="Heavy Traffic"><img src="diesel.jpg" alt="Heavy Traffic"><span>Heavy Traffic</span></div>
+                </div>
+            </div>
+
+            <div class="category" data-category="Road_Type">
+                <h3>Road_Type</h3>
+                <div class="options">
+                    <div class="option" data-value="Highway"><img src="petrol.jpg" alt="Highway"><span>Highway</span></div>
+                    <div class="option" data-value="City streets"><img src="diesel.jpg" alt="City streets"><span>City streets</span></div>
+                </div>
+            </div>
+
+            <div class="category" data-category="Weather_Condition">
+                <h3>Weather_Condition</h3>
+                <div class="options">
+                    <div class="option" data-value="Rainy"><img src="petrol.jpg" alt="Rainy"><span>Rainy</span></div>
+                    <div class="option" data-value="Clear"><img src="diesel.jpg" alt="Clear"><span>Clear</span></div>
+                </div>
+            </div>
+
+            <div class="category" data-category="Driver_Experience">
+                <h3>Driver_Experience</h3>
+                <div class="options">
+                    <div class="option" data-value="Novice"><img src="petrol.jpg" alt="Novice"><span>Novice</span></div>
+                    <div class="option" data-value="Expert"><img src="diesel.jpg" alt="Expert"><span>Expert</span></div>
+                </div>
+            </div>
+
+            <button id="predictButton">Predict</button>
+            <div id="result"></div>
         </div>
-    </main>
-    
-    <div class="chatbot">
-        <a href="chatbot.html">
-        <i class="fas fa-comments"></i>
-        </a>
     </div>
-    
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>Premium Cars</h3>
-                <p>Experience luxury and performance with our exclusive collection of high-end vehicles from the world's most prestigious manufacturers.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Models</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Dealers</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Services</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Car Purchase</a></li>
-                    <li><a href="#">Financing Options</a></li>
-                    <li><a href="#">Maintenance</a></li>
-                    <li><a href="#">Extended Warranty</a></li>
-                    <li><a href="#">Car Insurance</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Contact Us</h3>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <p>Helpline: +91 9909861059</p>
-                            <p>Mon-Sat: 9:00 AM - 8:00 PM</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <p>info@premiumcars.com</p>
-                            <p>support@premiumcars.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <p>123 Luxury Lane, Automobile District</p>
-                            <p>Premium City, PC 12345</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>&copy; 2025 Premium Cars. All Rights Reserved.</p>
-        </div>
-    </footer>
 
-    <script src="filter.js"></script>
+    <script>
+        const selectedOptions = {};
+
+        document.querySelectorAll(".category").forEach(category => {
+            const categoryName = category.getAttribute("data-category");
+
+            category.querySelectorAll(".option").forEach(option => {
+                option.addEventListener("click", () => {
+                    // Remove selection from all other options
+                    category.querySelectorAll(".option").forEach(opt => opt.classList.remove("selected"));
+
+                    // Mark the clicked option as selected
+                    option.classList.add("selected");
+
+                    // Store selected value
+                    selectedOptions[categoryName] = option.getAttribute("data-value");
+                });
+            });
+        });
+
+        document.getElementById("predictButton").addEventListener("click", async () => {
+            if (Object.keys(selectedOptions).length < 3) {
+                alert("Please select all options before predicting.");
+                return;
+            }
+
+            const response = await fetch("http://127.0.0.1:8000/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(selectedOptions)
+            });
+
+            const result = await response.json();
+            document.getElementById("result").innerHTML = `
+                <strong>Fuel Efficiency:</strong> ${result.Fuel_Efficiency} km/l<br>
+                <strong>Safety Rating:</strong> ${result.Safety_Rating}/5<br>
+                <strong>Price:</strong> $${result.Price}<br>
+                <strong>Comfort Rating:</strong> ${result.Comfort_Rating}/10
+            `;
+        });
+    </script>
 </body>
 </html>

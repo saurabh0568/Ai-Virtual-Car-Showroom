@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Big GIF Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    .gif-container {
+      display: inline-block;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    img {
+      width: 500px; /* Increase this value as needed */
+      height: auto; /* Keep aspect ratio */
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: white;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gif-container">
+    <img id="myGif" src="https://cdn.dribbble.com/userupload/41900328/file/original-8104df0ec0736d483fa4096c62fa1c46.gif" alt="GIF Example">
+  </div>
+
+  <br>
+  <button onclick="restartGif()">Restart GIF</button>
+
+  <script>
+    function restartGif() {
+      const gif = document.getElementById("myGif");
+      const src = gif.src;
+      gif.src = "";
+      gif.src = src;
+    }
+  </script>
+
+</body>
+</html>

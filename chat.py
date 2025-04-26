@@ -1,33 +1,25 @@
 from fastapi import FastAPI, WebSocket
-from fastapi.middleware.cors import CORSMiddleware
-import openai
 import asyncio
 
 app = FastAPI()
 
-# Allow frontend to connect
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+async def ai_response_stream(user_input: str):
+    """Simulate real-time AI response streaming"""
+    responses = {
+        "hi": "Hello! How can I assist you today?",
+        "how are you": "I'm just a bot, but I'm here to help! 🚗",
+        "tell me about SUVs": "SUVs are spacious and great for family trips! 🚙",
+    }
+    response_text = responses.get(user_input.lower(), "I'm here to assist! Ask about sedans, SUVs, financing, or test drives.")
+    
+    for word in response_text.split():
+        yield word + " "
+        await asyncio.sleep(0.2)  # Simulate typing delay
 
-OPENAI_API_KEY = ""
-openai.api_key = OPENAI_API_KEY
-
-@app.websocket("/chat")
+@app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
-        try:
-            data = await websocket.receive_text()
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo", messages=[{"role": "user", "content": data}]
-            )
-            reply = response["choices"][0]["message"]["content"]
-            await websocket.send_text(reply)
-        except Exception as e:
-            await websocket.send_text(f"Error: {str(e)}")
-            break
+        data = await websocket.receive_text()
+        async for word in ai_response_stream(data):
+            await websocket.send_text(word)

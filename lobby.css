@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#showroom {
+    overflow-y: scroll;
+    height: 400px;
+    width: 300px;
+    margin: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.car-item {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.car-item.selected {
+    background: yellow;
+}

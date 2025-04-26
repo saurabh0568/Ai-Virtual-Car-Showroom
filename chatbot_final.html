@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Enhanced Car Showroom Chatbot</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #e9ecef;
+            --accent-color: #28a745;
+            --text-color: #333;
+            --light-text: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-shadow: var(--box-shadow);
+        }
+
+        .sidebar {
+            width: 30%;
+            background-color: white;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: white;
+            border-left: 4px solid var(--primary-color);
+            align-self: flex-start;
+            box-shadow: var(--box-shadow);
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 15px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .message-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .send-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            margin-left: 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .send-button:hover {
+            background-color: #004494;
+        }
+
+        .car-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-button {
+            padding: 12px 15px;
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            text-align: left;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .category-button:hover {
+            background-color: #dde0e3;
+        }
+
+        .quick-questions {
+            flex: 1;
+        }
+
+        .quick-questions h3 {
+            margin-bottom: 15px;
+            color: var(--light-text);
+        }
+
+        .question-button {
+            padding: 10px 15px;
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .question-button:hover {
+            background-color: var(--secondary-color);
+            border-color: #bbb;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            padding: 12px 15px;
+            align-self: flex-start;
+            margin-bottom: 5px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background-color: var(--light-text);
+            border-radius: 50%;
+            margin: 0 2px;
+            display: inline-block;
+            animation: typing 1s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+
+        .config-panel {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+
+        .switch-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+                padding: 15px;
+            }
+            .main-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">S2 CarHub Assistant</div>
+            
+            <div class="config-panel">
+                <div class="switch-container">
+                    <span>Chatbot</span>
+                    <label class="switch">
+                        <input type="checkbox" id="ai-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div id="ai-status"></div>
+            </div>
+            
+            <div class="car-categories">
+                <button class="category-button" data-message="Tell me about your sedans">Sedans</button>
+                <button class="category-button" data-message="What SUVs do you have?">SUVs</button>
+                <button class="category-button" data-message="Show me electric vehicles">Electric Vehicles</button>
+                <button class="category-button" data-message="What are your financing options?">Financing Options</button>
+            </div>
+            
+            <div class="quick-questions">
+                <h3>Quick Questions</h3>
+                <button class="question-button" data-message="How do I schedule a test drive?">Schedule Test Drive</button>
+                <button class="question-button" data-message="What warranty do you offer?">Warranty Information</button>
+                <button class="question-button" data-message="Can I trade in my current car?">Trade-In Options</button>
+                <button class="question-button" data-message="Do you offer home delivery?">Delivery Options</button>
+                <button class="question-button" data-message="Compare electric and gas vehicles">EV vs Gas Comparison</button>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Car Showroom Assistant</h1>
+                <div class="status">
+                    <div class="status-indicator"></div>
+                    <span>Online</span>
+                </div>
+            </div>
+            
+            <div id="chat-container" class="chat-container">
+                <div class="message bot-message">
+                    Welcome to S2 CarHub! I'm your AI-powered assistant ready to help you explore our vehicle lineup and answer any questions. What can I help you with today?
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="message-input" class="message-input" placeholder="Type your message...">
+                <button id="send-button" class="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class CarShowroomChatbot {
+            constructor() {
+                this.carDatabase = {
+                    sedans: [
+                    { model: "Luxury S1", price: 35000, mpg: 28, features: ["leather seats", "panoramic sunroof", "premium sound system"] },
+                    { model: "Economy E3", price: 22000, mpg: 38, features: ["backup camera", "bluetooth", "cruise control"] },
+                    { model: "Sport GT", price: 42000, mpg: 25, features: ["sport suspension", "turbo engine", "racing seats"] }
+                    ],
+                    suvs: [
+                    { model: "Family XL", price: 38000, mpg: 24, features: ["third row seating", "advanced safety", "entertainment system"] },
+                    { model: "Compact C2", price: 28000, mpg: 32, features: ["all-wheel drive", "hands-free liftgate", "roof rails"] },
+                    { model: "Luxury LX", price: 52000, mpg: 22, features: ["premium leather", "adaptive cruise", "360 camera"] }
+                    ],
+                    electric: [
+                    { model: "EV Prime", price: 45000, range: 310, features: ["fast charging", "autopilot", "zero emissions"] },
+                    { model: "EV Sport", price: 65000, range: 280, features: ["dual motor", "premium interior", "performance package"] },
+                    { model: "EV City", price: 32000, range: 220, features: ["compact size", "affordable", "low maintenance"] }
+                    ]
+                };
+                
+                this.financingOptions = {
+                    loan: {
+                    rates: "Starting at 3.9% APR",
+                    terms: "36-72 months",
+                    requirements: "Credit score 650+, proof of income"
+                    },
+                    lease: {
+                    rates: "Starting at RS. 1299/month",
+                    terms: "24-48 months",
+                    requirements: "Credit score 680+, proof of income"
+                    },
+                    cashback: {
+                    description: "Up to RS. 13,000 cashback on select models",
+                    eligibility: "New vehicles only, cannot be combined with special financing"
+                    }
+                };
+                
+                this.commonQuestions = {
+                    "test drive": "You can schedule a test drive directly through our website or by calling our showroom. For virtual test drives, we offer video walkarounds and detailed 360° interior/exterior views.",
+                    "warranty": "All new vehicles come with a 3-year/36,000-mile basic warranty and a 5-year/60,000-mile powertrain warranty. Extended warranties are available for purchase.",
+                    "trade in": "We accept trade-ins and offer competitive market valuations. You can get an estimated value through our online tool or bring your vehicle to our showroom for an in-person appraisal.",
+                    "delivery": "Delivery options include showroom pickup or home delivery within 50 miles. Delivery is typically available within 3-5 days after purchase completion.",
+                    "customization": "Most models can be customized with various packages and accessories. Custom orders typically take 4-8 weeks for delivery."
+                };
+            }
+        
+            processMessage(message) {
+                message = message.toLowerCase();
+                
+                // Check for greetings
+                if (this.containsAny(message, ["hello", "hi", "hey", "start"])) {
+                    return this.getWelcomeMessage();
+                }
+                
+                // Check for car type inquiries
+                if (this.containsAny(message, ["sedan", "car"])) {
+                    return this.getCarTypeInfo("sedans");
+                }
+                
+                if (this.containsAny(message, ["suv", "crossover", "family"])) {
+                    return this.getCarTypeInfo("suvs");
+                }
+                
+                if (this.containsAny(message, ["electric", "ev", "battery"])) {
+                    return this.getCarTypeInfo("electric");
+                }
+                
+                // Check for pricing inquiries
+                if (this.containsAny(message, ["price", "cost", "afford", "how much"])) {
+                    return this.getPricingInfo(message);
+                }
+                
+                // Check for financing inquiries
+                if (this.containsAny(message, ["finance", "loan", "lease", "payment", "interest", "credit"])) {
+                    return this.getFinancingInfo(message);
+                }
+                
+                // Check for common questions
+                if (this.containsAny(message, ["test drive", "test-drive"])) {
+                    return this.commonQuestions["test drive"];
+                }
+                
+                if (this.containsAny(message, ["warranty", "guarantee", "repair"])) {
+                    return this.commonQuestions["warranty"];
+                }
+                
+                if (this.containsAny(message, ["trade in", "trade-in", "tradein", "my car"])) {
+                    return this.commonQuestions["trade in"];
+                }
+                
+                if (this.containsAny(message, ["delivery", "pickup", "collect"])) {
+                    return this.commonQuestions["delivery"];
+                }
+                
+                if (this.containsAny(message, ["custom", "customize", "personalize", "options"])) {
+                    return this.commonQuestions["customization"];
+                }
+                
+                // Compare vehicles
+                if (this.containsAny(message, ["compare", "difference", "vs", "versus"])) {
+                    return this.getComparisonInfo(message);
+                }
+                
+                // Handle unknown queries
+                return null; // Return null to indicate we should use AI for this query
+            }
+            
+            containsAny(text, keywords) {
+                return keywords.some(keyword => text.includes(keyword));
+            }
+            
+            getWelcomeMessage() {
+                return "Welcome to our S2 CarHub! I can help you explore our vehicle lineup, discuss financing options, or answer questions about the buying process. What type of vehicle are you interested in today? We have sedans, SUVs, and electric vehicles available.";
+            }
+            
+            getCarTypeInfo(type) {
+                let response = `Here are our available ${type}:\n\n`;
+                
+                this.carDatabase[type].forEach(car => {
+                    response += `${car.model} - $${car.price.toLocaleString()}\n`;
+                    if (type === "electric") {
+                    response += `Range: ${car.range} miles\n`;
+                    } else {
+                    response += `Fuel efficiency: ${car.mpg} mpg\n`;
+                    }
+                    response += `Key features: ${car.features.join(", ")}\n\n`;
+                });
+                
+                response += "Would you like more detailed information about any specific model?";
+                return response;
+            }
+            
+            getPricingInfo(message) {
+                // Check if the message contains a specific vehicle type
+                let vehicleType = "";
+                if (this.containsAny(message, ["sedan", "car"])) {
+                    vehicleType = "sedans";
+                } else if (this.containsAny(message, ["suv", "crossover"])) {
+                    vehicleType = "suvs";
+                } else if (this.containsAny(message, ["electric", "ev"])) {
+                    vehicleType = "electric";
+                }
+                
+                if (vehicleType) {
+                    const vehicles = this.carDatabase[vehicleType];
+                    const lowest = Math.min(...vehicles.map(v => v.price));
+                    const highest = Math.max(...vehicles.map(v => v.price));
+                    
+                    return `Our ${vehicleType} range from $${lowest.toLocaleString()} to $${highest.toLocaleString()}. Monthly payments can be as low as $${Math.round(lowest/60).toLocaleString()} with approved financing. Would you like to see specific models or discuss financing options?`;
+                }
+                
+                return "Our vehicles range from RS. 1022,000 for our Economy E3 sedan to RS. 11065,000 for our top-of-the-line EV Sport. We offer flexible financing options to fit various budgets. Which price range are you considering?";
+            }
+            
+            getFinancingInfo(message) {
+                if (this.containsAny(message, ["loan"])) {
+                    const loan = this.financingOptions.loan;
+                    return `We offer auto loans starting at ${loan.rates} with terms from ${loan.terms}. Requirements include ${loan.requirements}. Would you like to pre-qualify or discuss specific payment scenarios?`;
+                }
+                
+                if (this.containsAny(message, ["lease"])) {
+                    const lease = this.financingOptions.lease;
+                    return `Our lease options start at ${lease.rates} with terms from ${lease.terms}. Requirements include ${lease.requirements}. Leasing is a great option if you prefer lower monthly payments and like to upgrade vehicles regularly.`;
+                }
+                
+                if (this.containsAny(message, ["cash", "rebate", "discount"])) {
+                    const cashback = this.financingOptions.cashback;
+                    return `We currently offer ${cashback.description}. ${cashback.eligibility}. Would you like to know which models qualify for the maximum cashback?`;
+                }
+                
+                return "We offer various financing options including loans, leases, and cashback incentives. Our finance team can help find the best option based on your credit profile and budget. Would you like details about loans, leases, or current promotions?";
+            }
+            
+            getComparisonInfo(message) {
+                // Compare electric vs gas
+                if (this.containsAny(message, ["electric", "ev"]) && this.containsAny(message, ["gas", "petrol", "traditional"])) {
+                    return "Electric vehicles offer lower operating costs, zero emissions, and instant torque for better acceleration. Gas vehicles typically have longer range and faster refueling. Our EV Prime costs about $45,000 and has a 310-mile range, while a comparable Luxury S1 sedan costs $35,000 with a fuel range of approximately 420 miles. Would you like to discuss the total cost of ownership?";
+                }
+                
+                // Compare sedan vs SUV
+                if (this.containsAny(message, ["sedan"]) && this.containsAny(message, ["suv", "crossover"])) {
+                    return "Sedans typically offer better fuel efficiency and handling, while SUVs provide more interior space and higher ground clearance. For example, our Economy E3 sedan gets 38 mpg and costs $22,000, while our Compact C2 SUV gets 32 mpg and costs $28,000. Which aspects are most important for your needs?";
+                }
+                
+                return "I'd be happy to compare specific models or vehicle types. Would you like to compare sedans vs SUVs, electric vs gas vehicles, or specific models in our lineup?";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const chatContainer = document.getElementById("chat-container");
+            const messageInput = document.getElementById("message-input");
+            const sendButton = document.getElementById("send-button");
+            const aiToggle = document.getElementById("ai-toggle");
+            const aiStatus = document.getElementById("ai-status");
+            
+            // Initialize the chatbot
+            const chatbot = new CarShowroomChatbot();
+            
+            // Set up the WebSocket connection to Python backend
+            const ws = new WebSocket("ws://localhost:8000/ws");
+            let websocketReady = false;
+            
+            ws.onopen = function() {
+                console.log("WebSocket connection established.");
+                websocketReady = true;
+            };
+            
+            ws.onerror = function() {
+                console.log("WebSocket connection error.");
+                aiToggle.checked = false;
+                aiStatus.textContent = "AI mode disabled: Could not connect to Python backend";
+                aiStatus.style.color = "#d9534f";
+            };
+            
+            ws.onclose = function() {
+                console.log("WebSocket connection closed.");
+                websocketReady = false;
+                if (aiToggle.checked) {
+                    aiToggle.checked = false;
+                    aiStatus.textContent = "AI mode disabled: Connection to Python backend lost";
+                    aiStatus.style.color = "#d9534f";
+                }
+            };
+            
+            ws.onmessage = function(event) {
+                addMessage(event.data, false);
+            };
+            
+            function addMessage(text, isUser = false) {
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+                messageDiv.classList.add(isUser ? "user-message" : "bot-message");
+                messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            function addTypingIndicator() {
+                const indicator = document.createElement("div");
+                indicator.classList.add("typing-indicator");
+                indicator.id = "typing-indicator";
+                indicator.innerHTML = '<span></span><span></span><span></span>';
+                chatContainer.appendChild(indicator);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            function removeTypingIndicator() {
+                const indicator = document.getElementById("typing-indicator");
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+            
+            async function handleUserMessage() {
+                const message = messageInput.value.trim();
+                if (message === "") return;
+                
+                // Add user message to chat
+                addMessage(message, true);
+                messageInput.value = "";
+                
+                // Show typing indicator
+                addTypingIndicator();
+                
+                // Check if we should use the AI or the static chatbot
+                if (aiToggle.checked && websocketReady) {
+                    // Send to WebSocket (Python backend)
+                    ws.send(message);
+                } else {
+                    // Use the JavaScript chatbot
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        const response = chatbot.processMessage(message);
+                        
+                        // If the chatbot doesn't have a predefined answer, give a fallback
+                        if (response === null) {
+                            addMessage("I'm sorry, but I don't have an answer for that specific question. Please try asking about our vehicles, financing options, or use one of the quick questions on the sidebar.", false);
+                        } else {
+                            addMessage(response, false);
+                        }
+                    }, 800);
+                }
+            }
+            
+            // Set up event listeners
+            sendButton.addEventListener("click", handleUserMessage);
+            
+            messageInput.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    handleUserMessage();
+                }
+            });
+            
+            aiToggle.addEventListener("change", function() {
+                if (this.checked) {
+                    if (websocketReady) {
+                        aiStatus.textContent = "AI mode is active: Using Gemini for responses";
+                        aiStatus.style.color = "inherit";
+                    } else {
+                        this.checked = false;
+                        aiStatus.textContent = "AI mode disabled: Could not connect to Python backend";
+                        aiStatus.style.color = "#d9534f";
+                    }
+                } else {
+                    aiStatus.textContent = "AI mode disabled: Using predefined responses only";
+                    aiStatus.style.color = "inherit";
+                }
+            });
+            
+            document.querySelectorAll(".category-button, .question-button").forEach(button => {
+                button.addEventListener("click", function() {
+                    messageInput.value = this.dataset.message;
+                    handleUserMessage();
+                });
+            });
+            
+            // Initial check for WebSocket status
+            setTimeout(() => {
+                if (!websocketReady && aiToggle.checked) {
+                    aiToggle.checked = false;
+                    aiStatus.textContent = "AI mode disabled: Could not connect to Python backend";
+                    aiStatus.style.color = "#d9534f";
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

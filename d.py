@@ -5,11 +5,11 @@ import time
 
 # Step 1: Read CSV
 print("🔄 Reading CSV...")
-df = pd.read_csv("Dataset_cars.csv")
+df = pd.read_csv("car_information.csv")
 print("✅ CSV read successfully.")
 
 # Step 2: Rename columns
-df.columns = ["Make", "Model", "Year", "Engine_Size_L", "Fuel_Type", "Price_USD"]
+df.columns = ["Make", "Model", "Year", "Engine_Size_L", "Fuel_Type", "Price_IR", "Car_Type", "Power", "Torque", "Transmission_type", "Transmission", "Mileage", "Seats"]
 print("📝 Columns renamed.")
 
 # Step 3: Clean and ensure native Python types
@@ -20,9 +20,16 @@ df = df.astype({
     "Year": int,
     "Engine_Size_L": float,
     "Fuel_Type": str,
-    "Price_USD": float
+    "Price_IR": float,
+    "Car_Type": str,
+    "Power": str,
+    "Torque": str,
+    "Transmission_type": str,
+    "Transmission": str,
+    "Mileage": str,
+    "Seats": int
 })
-df = df.astype(object)  # ✅ Convert numpy types to Python-native types
+df = df.astype(object)  # Ensure Python-native types
 
 # Step 4: Connect to MySQL
 print("🔌 Connecting to MySQL...")
@@ -58,7 +65,14 @@ try:
             Year INT,
             Engine_Size_L FLOAT,
             Fuel_Type VARCHAR(20),
-            Price_USD DECIMAL(10, 2)
+            Price_IR DECIMAL(10, 2),
+            Car_Type VARCHAR(50),
+            Power VARCHAR(50),
+            Torque VARCHAR(50),
+            Transmission_type VARCHAR(50),
+            Transmission VARCHAR(50),
+            Mileage VARCHAR(50),
+            Seats INT
         )
     """)
     print("✅ Table created or already exists.")
@@ -71,10 +85,12 @@ except mysql.connector.Error as err:
 print("🔎 Inserting a test row...")
 try:
     first_row = df.iloc[0]
-    cursor.execute("""
-        INSERT INTO cars_2010_2020 (Make, Model, Year, Engine_Size_L, Fuel_Type, Price_USD)
-        VALUES (%s, %s, %s, %s, %s, %s)
-    """, tuple(first_row))
+    insert_query = """
+        INSERT INTO cars_2010_2020 
+        (Make, Model, Year, Engine_Size_L, Fuel_Type, Price_IR, Car_Type, Power, Torque, Transmission_type, Transmission, Mileage, Seats)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    cursor.execute(insert_query, tuple(first_row))
     conn.commit()
     print("✅ Test row inserted.")
 except mysql.connector.Error as err:
@@ -83,26 +99,18 @@ except mysql.connector.Error as err:
     sys.exit(1)
 
 # Step 7: Insert all remaining rows
-print("📥 Inserting all rows...")
-insert_query = """
-    INSERT INTO cars_2010_2020 (Make, Model, Year, Engine_Size_L, Fuel_Type, Price_USD)
-    VALUES (%s, %s, %s, %s, %s, %s)
-"""
-
-rows_inserted = 1  # already inserted the first one
-
-for index, row in df.iloc[1:].iterrows():  # skip first since already inserted
-    try:
-        cursor.execute(insert_query, tuple(row))
-        rows_inserted += 1
-        if index % 100 == 0:
-            print(f"✅ Inserted row {index}")
-    except mysql.connector.Error as err:
-        print(f"❌ Error inserting row {index}: {err}")
+print("📥 Inserting all remaining rows...")
+try:
+    cursor.executemany(insert_query, [tuple(row) for row in df.iloc[1:].values])
+    conn.commit()
+    print(f"✅ Inserted {len(df) - 1} remaining rows.")
+except mysql.connector.Error as err:
+    print(f"❌ Error inserting remaining rows: {err}")
+    conn.close()
+    sys.exit(1)
 
 # Step 8: Finalize
-conn.commit()
 cursor.close()
 conn.close()
-print(f"🎉 Done! Total rows inserted: {rows_inserted}")
+print(f"🎉 Done! Total rows inserted: {len(df)}")
 print("🚀 Script completed successfully!")

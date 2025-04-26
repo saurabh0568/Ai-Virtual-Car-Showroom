@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Customization & Prediction</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="customization.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-car"></i> Car Customization </h1>
+            <p class="tagline">Design your ideal vehicle and see its performance</p>
+        </header>
+        
+        <div class="content">
+            <div class="left-section">
+                
+                <div class="car-image-container">
+                    <img id="car-image" src="car_cover.png" alt="Car Image">
+                    <div class="car-badge" id="car-badge">Select a model</div>
+                </div>
+                
+                <div class="selection-summary">
+                    <h3>Your Selections</h3>
+                    <div id="selection-tags" class="selection-tags">
+                        <div class="selection-tag"><i class="fas fa-info-circle"></i> Select options to begin</div>
+                    </div>
+                </div>
+                
+                <div id="result-container" class="result-container" style="display: none;">
+                    <h3>Results</h3>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="label">Fuel Efficiency</div>
+                            <div id="fuel-efficiency" class="value">--</div>
+                            <div class="unit">km/l</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="label">Safety Rating</div>
+                            <div id="safety-rating" class="value">--</div>
+                            <div class="unit">out of 5</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="label">Price</div>
+                            <div id="price" class="value">--</div>
+                            <div class="unit">INR</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="label">Comfort Rating</div>
+                            <div id="comfort-rating" class="value">--</div>
+                            <div class="unit">out of 10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-section">
+                <div class="categories-container">
+                    <div class="category" data-category="Car_Brand">
+                        <h3><i class="fas fa-copyright"></i> Car Brand</h3>
+                        <div class="options">
+                            <div class="option" data-value="Ford">
+                                <img src="/api/placeholder/40/40" alt="Ford">
+                                <span>Ford</span>
+                            </div>
+                            <div class="option" data-value="BMW">
+                                <img src="/api/placeholder/40/40" alt="BMW">
+                                <span>BMW</span>
+                            </div>
+                            <div class="option" data-value="Mercedes">
+                                <img src="/api/placeholder/40/40" alt="Mercedes">
+                                <span>Mercedes</span>
+                            </div>
+                            <div class="option" data-value="Tesla">
+                                <img src="/api/placeholder/40/40" alt="Tesla">
+                                <span>Tesla</span>
+                            </div>
+                            <div class="option" data-value="Toyota">
+                                <img src="/api/placeholder/40/40" alt="Toyota">
+                                <span>Toyota</span>
+                            </div>
+                            <div class="option" data-value="Hyundai">
+                                <img src="/api/placeholder/40/40" alt="Hyundai">
+                                <span>Hyundai</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Model">
+                        <h3><i class="fas fa-tag"></i> Model</h3>
+                        <div class="options" id="model-options">
+                            <div class="placeholder-message">Please select a car brand first</div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Engine_Type">
+                        <h3><i class="fas fa-cogs"></i> Engine Type</h3>
+                        <div class="options">
+                            <div class="option" data-value="Petrol">
+                                <img src="petrol.png" alt="Petrol">
+                                <span>Petrol</span>
+                            </div>
+                            <div class="option" data-value="Diesel">
+                                <img src="/api/placeholder/40/40" alt="Diesel">
+                                <span>Diesel</span>
+                            </div>
+                            <div class="option" data-value="Electric">
+                                <img src="/api/placeholder/40/40" alt="Electric">
+                                <span>Electric</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Driving_Condition">
+                        <h3><i class="fas fa-road"></i> Driving Condition</h3>
+                        <div class="options">
+                            <div class="option" data-value="Urban">
+                                <img src="/api/placeholder/40/40" alt="Urban">
+                                <span>Urban</span>
+                            </div>
+                            <div class="option" data-value="Highway">
+                                <img src="/api/placeholder/40/40" alt="Highway">
+                                <span>Highway</span>
+                            </div>
+                            <div class="option" data-value="Heavy Traffic">
+                                <img src="/api/placeholder/40/40" alt="Heavy Traffic">
+                                <span>Heavy Traffic</span>
+                            </div>
+                            <div class="option" data-value="Off-Road">
+                                <img src="/api/placeholder/40/40" alt="Off-Road">
+                                <span>Off-Road</span>
+                            </div>
+                            <div class="option" data-value="Extreme Weather">
+                                <img src="/api/placeholder/40/40" alt="Extreme Weather">
+                                <span>Extreme Weather</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category" data-category="Rim_Wheel_Size">
+                        <h3><i class="fas fa-cogs"></i> Wheel Size</h3>
+                        <div class="options">
+                            <div class="option" data-value="17">
+                                <img src="/api/placeholder/40/40" alt="17">
+                                <span>17</span>
+                            </div>
+                            <div class="option" data-value="18">
+                                <img src="/api/placeholder/40/40" alt="18">
+                                <span>18</span>
+                            </div>
+                            <div class="option" data-value="19">
+                                <img src="/api/placeholder/40/40" alt="19">
+                                <span>19</span>
+                            </div>
+                            <div class="option" data-value="20">
+                                <img src="/api/placeholder/40/40" alt="20">
+                                <span>20</span>
+                            </div>
+                            <div class="option" data-value="21">
+                                <img src="/api/placeholder/40/40" alt="21">
+                                <span>21</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category" data-category="Rim_Wheel_Style">
+                        <h3><i class="fas fa-cogs"></i> Wheel Style</h3>
+                        <div class="options">
+                            <div class="option" data-value="Sport">
+                                <img src="/api/placeholder/40/40" alt="Sport">
+                                <span>Sport</span>
+                            </div>
+                            <div class="option" data-value="Off-road">
+                                <img src="/api/placeholder/40/40" alt="Off-road">
+                                <span>Off-road</span>
+                            </div>
+                            <div class="option" data-value="Classic">
+                                <img src="/api/placeholder/40/40" alt="Classic">
+                                <span>Classic</span>
+                            </div>
+                            <div class="option" data-value="Luxury">
+                                <img src="/api/placeholder/40/40" alt="Luxury">
+                                <span>Luxury</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Rim_Wheel_Material">
+                        <h3><i class="fas fa-cogs"></i> Wheel Material</h3>
+                        <div class="options">
+                            <div class="option" data-value="Carbon Fiber">
+                                <img src="/api/placeholder/40/40" alt="Carbon Fiber">
+                                <span>Carbon Fiber</span>
+                            </div>
+                            <div class="option" data-value="Steel">
+                                <img src="/api/placeholder/40/40" alt="Steel">
+                                <span>Steel</span>
+                            </div>
+                            <div class="option" data-value="Alloy">
+                                <img src="/api/placeholder/40/40" alt="Alloy">
+                                <span>Alloy</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category" data-category="Power_Upgrade">
+                        <h3><i class="fas fa-cogs"></i> Power Upgrade</h3>
+                        <div class="options">
+                            <div class="option" data-value="Stock">
+                                <img src="/api/placeholder/40/40" alt="Stock">
+                                <span>Stock</span>
+                            </div>
+                            <div class="option" data-value="Stage 1">
+                                <img src="/api/placeholder/40/40" alt="Stage 1">
+                                <span>Stage 1</span>
+                            </div>
+                            <div class="option" data-value="Stage 2">
+                                <img src="/api/placeholder/40/40" alt="Stage 2">
+                                <span>Stage 2</span>
+                            </div>
+                            <div class="option" data-value="Stage 3">
+                                <img src="/api/placeholder/40/40" alt="Stage 3">
+                                <span>Stage 3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category" data-category="Turbo_Supercharger">
+                        <h3><i class="fas fa-cogs"></i> Turbo Supercharger</h3>
+                        <div class="options">
+                            <div class="option" data-value="Turbo">
+                                <img src="/api/placeholder/40/40" alt="Turbo">
+                                <span>Turbo</span>
+                            </div>
+                            <div class="option" data-value="Supercharger">
+                                <img src="/api/placeholder/40/40" alt="Supercharger">
+                                <span>Supercharger</span>
+                            </div>
+                            <div class="option" data-value="None">
+                                <img src="/api/placeholder/40/40" alt="None">
+                                <span>None</span>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="category" data-category="Weather_Condition">
+                        <h3><i class="fas fa-cloud-sun-rain"></i> Weather Condition</h3>
+                        <div class="options">
+                            <div class="option" data-value="Clear">
+                                <img src="/api/placeholder/40/40" alt="Clear">
+                                <span>Clear</span>
+                            </div>
+                            <div class="option" data-value="Rainy">
+                                <img src="/api/placeholder/40/40" alt="Rainy">
+                                <span>Rainy</span>
+                            </div>
+                            <div class="option" data-value="Snowy">
+                                <img src="/api/placeholder/40/40" alt="Snowy">
+                                <span>Snowy</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category" data-category="Driver_Experience">
+                        <h3><i class="fas fa-user-alt"></i> Driver Experience</h3>
+                        <div class="options">
+                            <div class="option" data-value="Novice">
+                                <img src="/api/placeholder/40/40" alt="Novice">
+                                <span>Novice</span>
+                            </div>
+                            <div class="option" data-value="Intermediate">
+                                <img src="/api/placeholder/40/40" alt="Intermediate">
+                                <span>Intermediate</span>
+                            </div>
+                            <div class="option" data-value="Expert">
+                                <img src="/api/placeholder/40/40" alt="Expert">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-area">
+                    <button id="resetButton"><i class="fas fa-undo"></i> Reset Selections</button>
+                    <button id="predictButton"><i class="fas fa-calculator"></i> Generate Prediction</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 Car Customization & Prediction Tool | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </footer>
+    </div>
+
+    <script src="customization.js"></script>
+</body>
+</html>

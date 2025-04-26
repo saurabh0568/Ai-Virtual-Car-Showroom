@@ -1,0 +1,201 @@
+Make,Model,Year,Engine Size (L),Fuel Type,Price (INR),Car Type,Power,Torque,Transmission_type,Transmission,Mileage,Seats
+BMW,7 Series,2022,1.5,Electric,3797358.725,Sedan,340 hp,450 Nm,8-speed Automatic,Automatic,11.86 kmpl,5
+Hyundai,Kona,2019,1.1,Electric,2461344.53,SUV,134 hp,395 Nm,Single-speed Reduction Gear,Automatic,452 km/full charge,4
+Honda,Civic,2021,3.1,Petrol,5952042.825,Sedan,180 hp,240 Nm,CVT,Automatic,16.5 kmpl,6
+Nissan,Altima,2020,2.3,Electric,5238330.75,Sedan,188 hp,244 Nm,CVT,Automatic,14.7 kmpl,6
+Nissan,Sentra,2019,3.5,Petrol,4622089.895,Sedan,149 hp,198 Nm,CVT,Automatic,14.3 kmpl,5
+Ford,F-150,2020,3.8,Electric,2834501.855,SUV,272 hp,363 Nm,6-speed Manual,Manual,438 km/full charge,6
+Mercedes-Benz,GLC,2019,3.7,Petrol,1802390.92,SUV,228 hp,303 Nm,6-speed Automatic,Automatic,11.4 kmpl,4
+Hyundai,Kona,2019,1.3,Diesel,2156506.07,SUV,134 hp,395 Nm,Single-speed Reduction Gear,Automatic,452 km/full charge,6
+BMW,3 Series,2020,4.5,Hybrid,5455522.6,Sedan,341 hp,273 Nm,5-speed Manual,Manual,14.7 kmpl,6
+Nissan,Murano,2022,1.3,Petrol,4485098.96,SUV,148 hp,554 Nm,5-speed Manual,Manual,12.2 kmpl,4
+Nissan,Versa,2021,3.6,Hybrid,3558385.9,Sedan,284 hp,536 Nm,8-speed Automatic,Automatic,10.8 kmpl,7
+Honda,CR-V,2019,2.1,Hybrid,6365604.13,Sedan,202 hp,583 Nm,8-speed Automatic,Automatic,17.2 kmpl,7
+Nissan,Sentra,2021,4.7,Hybrid,3791922.04,Sedan,149 hp,198 Nm,CVT,Automatic,14.3 kmpl,4
+Toyota,Prius,2019,4.8,Petrol,2244989.35,Sedan,199 hp,514 Nm,6-speed Manual,Manual,11.7 kmpl,5
+Chevrolet,Equinox,2019,4,Hybrid,3563206.355,Sedan,396 hp,246 Nm,CVT,Automatic,15.6 kmpl,5
+Volkswagen,Tiguan,2022,4,Diesel,5712068,Sedan,132 hp,253 Nm,6-speed Automatic,Automatic,14.2 kmpl,5
+Honda,Accord,2019,4,Hybrid,1559709.86,Sedan,392 hp,429 Nm,8-speed Automatic,Automatic,17.3 kmpl,7
+Ford,Explorer,2021,2.5,Hybrid,3672815.97,SUV,354 hp,451 Nm,CVT,Automatic,13.7 kmpl,5
+Toyota,Prius,2021,2.2,Hybrid,3049915.99,Sedan,274 hp,423 Nm,6-speed Manual,Manual,17.5 kmpl,4
+Honda,Fit,2022,4.1,Petrol,2000452.085,Sedan,118 hp,291 Nm,5-speed Manual,Manual,10.6 kmpl,7
+BMW,X5,2022,2.3,Hybrid,2838876.42,Sedan,358 hp,515 Nm,6-speed Automatic,Automatic,15.0 kmpl,4
+Honda,Accord,2021,4.2,Petrol,4616156.385,Sedan,241 hp,373 Nm,CVT,Automatic,16.2 kmpl,5
+Ford,F-150,2018,2.1,Diesel,3431156.115,SUV,190 hp,486 Nm,6-speed Automatic,Automatic,15.9 kmpl,6
+Ford,Mustang,2021,2.7,Electric,2676539.06,Coupe,294 hp,173 Nm,5-speed Manual,Manual,358 km/full charge,7
+Hyundai,Tucson,2018,4.9,Diesel,4710502.2,Sedan,178 hp,481 Nm,8-speed Automatic,Automatic,18.3 kmpl,7
+Audi,A6,2022,4.3,Petrol,2814335.77,Sedan,375 hp,415 Nm,CVT,Automatic,11.8 kmpl,6
+Mercedes-Benz,GLC,2020,4.6,Hybrid,1516009.3,SUV,145 hp,507 Nm,6-speed Manual,Manual,14.1 kmpl,7
+Toyota,Corolla,2019,3.7,Hybrid,3561355.995,Sedan,201 hp,293 Nm,7-speed Automatic,Automatic,16.9 kmpl,6
+Ford,Mustang,2020,1.4,Hybrid,5332186.42,Coupe,247 hp,158 Nm,6-speed Automatic,Automatic,18.7 kmpl,7
+Honda,Pilot,2019,2,Electric,4553413.65,Sedan,310 hp,175 Nm,7-speed Automatic,Automatic,306 km/full charge,6
+Chevrolet,Tahoe,2018,1.5,Petrol,5489128.01,Sedan,365 hp,438 Nm,6-speed Automatic,Automatic,17.2 kmpl,5
+Honda,Pilot,2018,4.2,Hybrid,5079196.45,Sedan,356 hp,363 Nm,7-speed Automatic,Automatic,12.9 kmpl,6
+Volkswagen,Tiguan,2021,4,Petrol,3782580.895,Sedan,204 hp,559 Nm,CVT,Automatic,18.3 kmpl,5
+Volkswagen,Jetta,2021,2.1,Hybrid,1367188.92,Sedan,202 hp,164 Nm,CVT,Automatic,11.0 kmpl,6
+Mercedes-Benz,GLA,2020,4,Petrol,5347613.045,Sedan,199 hp,594 Nm,8-speed Automatic,Automatic,10.1 kmpl,6
+Toyota,Highlander,2020,4.6,Hybrid,3757937.54,Sedan,345 hp,413 Nm,6-speed Automatic,Automatic,19.2 kmpl,4
+Ford,Focus,2022,4.9,Diesel,1865780.78,Sedan,216 hp,222 Nm,8-speed Automatic,Automatic,10.1 kmpl,7
+Volkswagen,Tiguan,2022,2,Hybrid,2716112.215,Sedan,103 hp,413 Nm,7-speed Automatic,Automatic,18.7 kmpl,5
+Honda,Pilot,2019,1.3,Petrol,5460858.25,Sedan,245 hp,366 Nm,CVT,Automatic,15.8 kmpl,4
+Chevrolet,Spark,2018,1.4,Diesel,5716493.5,Sedan,255 hp,330 Nm,7-speed Automatic,Automatic,19.8 kmpl,4
+Hyundai,Elantra,2021,1.3,Petrol,5261567.13,Sedan,293 hp,537 Nm,5-speed Manual,Manual,13.1 kmpl,7
+Honda,CR-V,2022,2.3,Electric,4648632.04,Sedan,117 hp,469 Nm,7-speed Automatic,Automatic,347 km/full charge,7
+Nissan,Sentra,2020,3.5,Electric,4009821.97,Sedan,149 hp,198 Nm,CVT,Automatic,14.3 kmpl,5
+Toyota,Prius,2019,4.6,Electric,3412535.615,Sedan,104 hp,451 Nm,5-speed Manual,Manual,335 km/full charge,5
+Volkswagen,Golf,2020,1.4,Hybrid,5102749.295,Sedan,399 hp,200 Nm,CVT,Automatic,12.2 kmpl,5
+Volkswagen,Golf,2018,1.7,Diesel,1958490.83,Sedan,305 hp,468 Nm,6-speed Automatic,Automatic,14.8 kmpl,5
+Ford,Focus,2021,3.2,Hybrid,5717847.035,Sedan,381 hp,253 Nm,6-speed Manual,Manual,14.4 kmpl,5
+Toyota,Corolla,2021,2.1,Electric,4797469.955,Sedan,306 hp,525 Nm,5-speed Manual,Manual,462 km/full charge,5
+Honda,Accord,2020,3.3,Diesel,2703671.55,Sedan,381 hp,476 Nm,8-speed Automatic,Automatic,18.8 kmpl,4
+Toyota,Prius,2020,3.9,Diesel,3522156.92,Sedan,176 hp,539 Nm,7-speed Automatic,Automatic,18.2 kmpl,7
+Nissan,Rogue,2021,3.3,Petrol,1987684.935,Sedan,346 hp,599 Nm,6-speed Manual,Manual,10.1 kmpl,4
+Chevrolet,Impala,2020,4.5,Electric,5283153.55,Sedan,342 hp,534 Nm,CVT,Automatic,475 km/full charge,7
+Mercedes-Benz,E-Class,2022,2.5,Petrol,1589598.685,Sedan,211 hp,280 Nm,6-speed Automatic,Automatic,15.4 kmpl,6
+Hyundai,Kona,2020,4.8,Petrol,6445837.61,SUV,134 hp,395 Nm,Single-speed Reduction Gear,Automatic,452 km/full charge,6
+Audi,A6,2018,2.4,Hybrid,4217063.96,Sedan,252 hp,249 Nm,7-speed Automatic,Automatic,15.5 kmpl,6
+Chevrolet,Tahoe,2020,2.7,Electric,1834552.615,Sedan,364 hp,304 Nm,5-speed Manual,Manual,476 km/full charge,4
+Volkswagen,Passat,2021,2.5,Electric,6438351,Sedan,126 hp,295 Nm,8-speed Automatic,Automatic,471 km/full charge,4
+Hyundai,Sonata,2021,1.3,Hybrid,3136310.935,Sedan,316 hp,500 Nm,6-speed Manual,Manual,12.3 kmpl,6
+Honda,Civic,2021,1.5,Hybrid,3683503.135,Sedan,180 hp,240 Nm,CVT,Automatic,16.5 kmpl,7
+BMW,7 Series,2018,2.5,Petrol,2859533.485,Sedan,340 hp,450 Nm,8-speed Automatic,Automatic,11.86 kmpl,7
+Toyota,RAV4,2022,3.1,Hybrid,5394772.175,Sedan,276 hp,192 Nm,7-speed Automatic,Automatic,12.3 kmpl,5
+Nissan,Rogue,2021,1.9,Diesel,2386787.38,Sedan,303 hp,156 Nm,7-speed Automatic,Automatic,10.9 kmpl,7
+Nissan,Sentra,2018,2.8,Diesel,3326143.175,Sedan,149 hp,198 Nm,CVT,Automatic,14.3 kmpl,5
+Audi,A4,2022,3.6,Diesel,6532898.885,Sedan,102 hp,259 Nm,6-speed Manual,Manual,16.0 kmpl,4
+Volkswagen,Tiguan,2019,1.6,Electric,5882188.395,Sedan,181 hp,578 Nm,7-speed Automatic,Automatic,477 km/full charge,6
+Hyundai,Santa Fe,2022,2.3,Petrol,1779447.625,Sedan,252 hp,176 Nm,6-speed Automatic,Automatic,17.9 kmpl,6
+BMW,X5,2019,3.4,Electric,5114816.715,Sedan,377 hp,181 Nm,6-speed Manual,Manual,389 km/full charge,7
+Chevrolet,Equinox,2020,2.5,Diesel,4889372.56,Sedan,262 hp,226 Nm,8-speed Automatic,Automatic,17.4 kmpl,5
+Audi,Q7,2022,2.1,Hybrid,2849102.665,Sedan,138 hp,498 Nm,CVT,Automatic,14.6 kmpl,4
+Audi,Q5,2021,2.5,Diesel,2421354.71,Sedan,223 hp,413 Nm,6-speed Automatic,Automatic,15.1 kmpl,7
+Chevrolet,Equinox,2019,4.1,Petrol,6442969.385,Sedan,127 hp,578 Nm,5-speed Manual,Manual,11.0 kmpl,6
+Chevrolet,Impala,2019,1.6,Petrol,1422671.33,Sedan,225 hp,437 Nm,CVT,Automatic,12.2 kmpl,6
+Chevrolet,Impala,2021,1.8,Diesel,3309678.645,Sedan,135 hp,335 Nm,5-speed Manual,Manual,17.5 kmpl,6
+Ford,Fiesta,2022,1.3,Electric,4021252.285,Sedan,195 hp,479 Nm,6-speed Manual,Manual,435 km/full charge,4
+BMW,X3,2020,4.6,Hybrid,2686587.45,Sedan,379 hp,451 Nm,8-speed Automatic,Automatic,14.1 kmpl,6
+Toyota,RAV4,2022,2.7,Petrol,3192534.825,Sedan,348 hp,587 Nm,CVT,Automatic,16.4 kmpl,4
+Hyundai,Tucson,2022,1.8,Petrol,4016162.125,Sedan,245 hp,336 Nm,6-speed Automatic,Automatic,14.3 kmpl,7
+Chevrolet,Malibu,2020,1.7,Diesel,3288987.345,Sedan,163 hp,556 Nm,8-speed Automatic,Automatic,18.0 kmpl,7
+Hyundai,Elantra,2021,1,Diesel,2729401.24,Sedan,373 hp,412 Nm,CVT,Automatic,12.0 kmpl,4
+Audi,A4,2020,4.4,Electric,2878230.805,Sedan,112 hp,594 Nm,5-speed Manual,Manual,498 km/full charge,4
+Volkswagen,Golf,2022,1.8,Electric,6108038.36,Sedan,111 hp,265 Nm,8-speed Automatic,Automatic,475 km/full charge,4
+Hyundai,Elantra,2018,1.2,Hybrid,5312250.795,Sedan,275 hp,401 Nm,8-speed Automatic,Automatic,13.6 kmpl,7
+Toyota,RAV4,2022,1.2,Diesel,4777202,Sedan,386 hp,330 Nm,CVT,Automatic,18.5 kmpl,5
+Mercedes-Benz,S-Class,2018,2.4,Electric,6424321.33,Sedan,321 hp,535 Nm,8-speed Automatic,Automatic,311 km/full charge,7
+Audi,Q7,2019,1.2,Electric,2372477.15,Sedan,161 hp,558 Nm,6-speed Manual,Manual,357 km/full charge,7
+Ford,Fiesta,2018,1.4,Petrol,5007888.285,Sedan,264 hp,586 Nm,8-speed Automatic,Automatic,11.5 kmpl,7
+Chevrolet,Spark,2019,1.9,Electric,6352776.025,Sedan,379 hp,316 Nm,CVT,Automatic,500 km/full charge,4
+Chevrolet,Tahoe,2019,3.3,Diesel,1833949.745,Sedan,393 hp,544 Nm,5-speed Manual,Manual,19.8 kmpl,4
+Honda,Fit,2022,2.9,Diesel,5304501.16,Sedan,381 hp,523 Nm,6-speed Manual,Manual,17.3 kmpl,6
+Mercedes-Benz,GLA,2022,4,Diesel,2705824.18,Sedan,374 hp,263 Nm,6-speed Manual,Manual,12.0 kmpl,6
+Mercedes-Benz,GLA,2022,3.9,Hybrid,4478067.425,Sedan,249 hp,474 Nm,5-speed Manual,Manual,17.3 kmpl,4
+BMW,3 Series,2022,2,Electric,1325449.775,Sedan,323 hp,247 Nm,7-speed Automatic,Automatic,484 km/full charge,7
+Audi,A3,2022,2.6,Petrol,6448489.57,Sedan,131 hp,387 Nm,6-speed Manual,Manual,12.2 kmpl,6
+Toyota,Highlander,2022,3.8,Electric,3158423.405,Sedan,125 hp,527 Nm,8-speed Automatic,Automatic,476 km/full charge,7
+Toyota,RAV4,2021,2.8,Electric,3860884.69,Sedan,202 hp,374 Nm,7-speed Automatic,Automatic,325 km/full charge,7
+BMW,3 Series,2020,1.1,Petrol,4962985.325,Sedan,285 hp,341 Nm,8-speed Automatic,Automatic,14.0 kmpl,7
+Hyundai,Santa Fe,2019,1.2,Electric,4017765.325,Sedan,308 hp,181 Nm,8-speed Automatic,Automatic,424 km/full charge,5
+Chevrolet,Equinox,2021,4.6,Electric,4613586.255,Sedan,236 hp,549 Nm,8-speed Automatic,Automatic,334 km/full charge,7
+Honda,Fit,2021,3.1,Hybrid,2109624.995,Sedan,163 hp,478 Nm,CVT,Automatic,18.3 kmpl,7
+Mercedes-Benz,C-Class,2020,1.3,Electric,4241174.585,Convertible,318 hp,333 Nm,6-speed Manual,Manual,412 km/full charge,5
+Toyota,Camry,2021,1.6,Petrol,1783791.295,Sedan,244 hp,571 Nm,8-speed Automatic,Automatic,18.8 kmpl,6
+Mercedes-Benz,C-Class,2018,1.5,Hybrid,2801763.175,Convertible,368 hp,168 Nm,CVT,Automatic,13.1 kmpl,7
+Volkswagen,Atlas,2021,4.2,Diesel,4233526.82,Sedan,167 hp,176 Nm,5-speed Manual,Manual,19.1 kmpl,7
+Volkswagen,Golf,2021,3.2,Petrol,5421303.465,Sedan,323 hp,532 Nm,7-speed Automatic,Automatic,16.3 kmpl,7
+Ford,Focus,2019,2.8,Petrol,1367561.33,Sedan,388 hp,300 Nm,CVT,Automatic,15.3 kmpl,4
+Nissan,Rogue,2021,3.8,Hybrid,2710979.47,Sedan,118 hp,497 Nm,7-speed Automatic,Automatic,11.6 kmpl,7
+Audi,A6,2020,3.4,Diesel,3784182.425,Sedan,247 hp,191 Nm,6-speed Automatic,Automatic,13.9 kmpl,5
+Mercedes-Benz,GLC,2018,3.5,Diesel,4756221.79,SUV,209 hp,347 Nm,6-speed Manual,Manual,12.7 kmpl,4
+Chevrolet,Malibu,2018,4.8,Electric,2024688.795,Sedan,214 hp,528 Nm,5-speed Manual,Manual,442 km/full charge,4
+Chevrolet,Impala,2019,2.2,Hybrid,4527456.005,Sedan,228 hp,588 Nm,CVT,Automatic,18.4 kmpl,4
+Hyundai,Sonata,2021,3,Diesel,5828885.335,Sedan,275 hp,576 Nm,8-speed Automatic,Automatic,11.4 kmpl,5
+Volkswagen,Passat,2019,1.2,Petrol,4642886.405,Sedan,265 hp,550 Nm,5-speed Manual,Manual,19.7 kmpl,4
+Volkswagen,Passat,2018,3.7,Diesel,2029532.63,Sedan,315 hp,455 Nm,5-speed Manual,Manual,14.7 kmpl,4
+Hyundai,Elantra,2018,4.2,Electric,5945432.965,Sedan,317 hp,193 Nm,7-speed Automatic,Automatic,454 km/full charge,6
+Volkswagen,Atlas,2019,4.2,Hybrid,5137008.51,Sedan,101 hp,596 Nm,CVT,Automatic,10.5 kmpl,4
+Mercedes-Benz,C-Class,2019,1.9,Petrol,6255009.215,Convertible,163 hp,517 Nm,6-speed Automatic,Automatic,13.3 kmpl,4
+Volkswagen,Jetta,2022,1.6,Diesel,1767802.715,Sedan,332 hp,556 Nm,CVT,Automatic,14.1 kmpl,4
+BMW,X3,2021,1.5,Petrol,2555418.97,Sedan,315 hp,452 Nm,6-speed Manual,Manual,10.3 kmpl,4
+Ford,Mustang,2019,1.9,Petrol,5621052.165,Coupe,288 hp,505 Nm,6-speed Automatic,Automatic,12.3 kmpl,7
+Chevrolet,Malibu,2021,3.1,Hybrid,3892083.63,Sedan,238 hp,324 Nm,CVT,Automatic,14.7 kmpl,7
+Ford,F-150,2020,1.8,Petrol,2029490.045,SUV,213 hp,459 Nm,CVT,Automatic,16.7 kmpl,6
+Honda,CR-V,2022,4.5,Petrol,1712221.775,Sedan,287 hp,220 Nm,CVT,Automatic,18.7 kmpl,6
+Nissan,Altima,2018,1,Diesel,5947810.21,Sedan,188 hp,244 Nm,CVT,Automatic,14.7 kmpl,4
+Mercedes-Benz,GLC,2022,1.7,Electric,5286506.91,SUV,352 hp,246 Nm,7-speed Automatic,Automatic,469 km/full charge,7
+Volkswagen,Atlas,2019,3.1,Electric,6107243.44,Sedan,252 hp,248 Nm,7-speed Automatic,Automatic,348 km/full charge,7
+Hyundai,Sonata,2021,2.7,Petrol,2132438.03,Sedan,105 hp,582 Nm,6-speed Manual,Manual,16.5 kmpl,5
+Ford,Explorer,2021,3.6,Diesel,2389380.89,SUV,357 hp,328 Nm,7-speed Automatic,Automatic,17.8 kmpl,4
+Nissan,Versa,2022,2.8,Electric,3886534.22,Sedan,106 hp,293 Nm,8-speed Automatic,Automatic,355 km/full charge,5
+Toyota,Camry,2020,1.4,Hybrid,2493320.02,Sedan,126 hp,483 Nm,8-speed Automatic,Automatic,15.8 kmpl,5
+Audi,Q7,2019,1.8,Diesel,4269220.565,Sedan,159 hp,250 Nm,5-speed Manual,Manual,18.3 kmpl,5
+Nissan,Altima,2022,4.9,Petrol,3564962.36,Sedan,188 hp,244 Nm,CVT,Automatic,14.7 kmpl,5
+Chevrolet,Tahoe,2019,1.3,Hybrid,2755234.47,Sedan,215 hp,154 Nm,CVT,Automatic,12.1 kmpl,7
+Chevrolet,Spark,2018,3.2,Petrol,3763953.715,Sedan,187 hp,365 Nm,CVT,Automatic,19.4 kmpl,6
+Hyundai,Santa Fe,2022,3.6,Diesel,2755034.905,Sedan,215 hp,274 Nm,8-speed Automatic,Automatic,16.7 kmpl,7
+Honda,Pilot,2021,3.9,Diesel,2333832.515,Sedan,329 hp,261 Nm,5-speed Manual,Manual,17.7 kmpl,7
+Volkswagen,Jetta,2022,2.4,Electric,4984439.815,Sedan,290 hp,320 Nm,6-speed Manual,Manual,304 km/full charge,7
+BMW,X5,2018,1.8,Diesel,3874422.545,Sedan,111 hp,268 Nm,6-speed Manual,Manual,11.0 kmpl,5
+BMW,7 Series,2022,3.5,Hybrid,3634483.625,Sedan,340 hp,450 Nm,8-speed Automatic,Automatic,11.86 kmpl,4
+Audi,A3,2020,4,Hybrid,3582759.55,Sedan,140 hp,439 Nm,CVT,Automatic,13.2 kmpl,6
+Nissan,Murano,2021,2.3,Hybrid,3531246.73,SUV,395 hp,161 Nm,6-speed Automatic,Automatic,13.9 kmpl,4
+BMW,5 Series,2020,3.9,Hybrid,4381223.29,Sedan,110 hp,451 Nm,5-speed Manual,Manual,16.7 kmpl,5
+Honda,Accord,2020,4.4,Electric,1695749.73,Sedan,396 hp,542 Nm,5-speed Manual,Manual,343 km/full charge,4
+Mercedes-Benz,E-Class,2022,4.2,Diesel,3700259.08,Sedan,279 hp,223 Nm,6-speed Automatic,Automatic,16.9 kmpl,5
+Honda,CR-V,2022,2.1,Diesel,5736070.075,Sedan,322 hp,556 Nm,6-speed Automatic,Automatic,16.8 kmpl,6
+Honda,Civic,2019,4.5,Diesel,6668459.465,Sedan,180 hp,240 Nm,CVT,Automatic,16.5 kmpl,6
+Nissan,Murano,2019,4.1,Electric,5051003.51,SUV,154 hp,227 Nm,6-speed Automatic,Automatic,325 km/full charge,4
+BMW,3 Series,2019,2.6,Diesel,4471346.51,Sedan,153 hp,265 Nm,8-speed Automatic,Automatic,14.9 kmpl,4
+Hyundai,Santa Fe,2020,2.6,Hybrid,6021984.93,Sedan,347 hp,373 Nm,6-speed Automatic,Automatic,16.9 kmpl,7
+BMW,X3,2018,4.7,Diesel,2443181.61,Sedan,236 hp,336 Nm,8-speed Automatic,Automatic,18.4 kmpl,6
+Audi,Q5,2022,2.5,Hybrid,4295381.115,Sedan,221 hp,565 Nm,7-speed Automatic,Automatic,14.6 kmpl,4
+Honda,Fit,2021,4.6,Electric,1485576.89,Sedan,243 hp,385 Nm,CVT,Automatic,380 km/full charge,6
+Ford,F-150,2022,3.4,Hybrid,2855242.42,SUV,380 hp,316 Nm,8-speed Automatic,Automatic,17.1 kmpl,6
+Hyundai,Tucson,2021,2.8,Hybrid,4984745.425,Sedan,291 hp,598 Nm,7-speed Automatic,Automatic,18.5 kmpl,6
+Honda,Civic,2019,2.4,Electric,3835218.46,Sedan,180 hp,240 Nm,CVT,Automatic,16.5 kmpl,6
+BMW,5 Series,2022,3.2,Petrol,4318602.465,Sedan,242 hp,192 Nm,CVT,Automatic,18.2 kmpl,7
+Audi,A3,2021,4.8,Electric,6645758.32,Sedan,390 hp,552 Nm,6-speed Automatic,Automatic,372 km/full charge,4
+Volkswagen,Passat,2018,1.1,Hybrid,6326471.02,Sedan,349 hp,348 Nm,6-speed Manual,Manual,14.0 kmpl,7
+Ford,Fiesta,2018,1.3,Hybrid,3684319.765,Sedan,281 hp,163 Nm,6-speed Manual,Manual,18.2 kmpl,4
+Nissan,Rogue,2018,4.8,Electric,5078925.075,Sedan,369 hp,331 Nm,6-speed Manual,Manual,479 km/full charge,7
+Ford,Fiesta,2019,1.4,Diesel,4816187.315,Sedan,380 hp,212 Nm,5-speed Manual,Manual,17.0 kmpl,4
+Mercedes-Benz,S-Class,2022,3.7,Petrol,5690013.98,Sedan,297 hp,546 Nm,6-speed Manual,Manual,17.6 kmpl,7
+Audi,Q7,2021,1.1,Petrol,5605746.615,Sedan,173 hp,180 Nm,6-speed Automatic,Automatic,10.0 kmpl,5
+Hyundai,Kona,2021,3.8,Hybrid,1740899.015,SUV,134 hp,395 Nm,Single-speed Reduction Gear,Automatic,452 km/full charge,4
+Mercedes-Benz,C-Class,2020,3.2,Diesel,3819933.785,Convertible,183 hp,492 Nm,6-speed Manual,Manual,13.3 kmpl,6
+Nissan,Murano,2021,1.1,Diesel,4550012.695,SUV,273 hp,555 Nm,7-speed Automatic,Automatic,10.5 kmpl,7
+Toyota,Camry,2019,4.6,Electric,1624014.045,Sedan,179 hp,322 Nm,6-speed Manual,Manual,356 km/full charge,4
+Nissan,Altima,2020,1.6,Hybrid,5762350.865,Sedan,188 hp,244 Nm,CVT,Automatic,14.7 kmpl,5
+BMW,X3,2021,1.7,Electric,1269869.67,Sedan,218 hp,471 Nm,6-speed Manual,Manual,400 km/full charge,5
+Mercedes-Benz,E-Class,2021,3.4,Electric,3329045.635,Sedan,233 hp,411 Nm,CVT,Automatic,361 km/full charge,4
+BMW,5 Series,2021,3.2,Diesel,3392172.47,Sedan,180 hp,183 Nm,6-speed Manual,Manual,19.8 kmpl,7
+Toyota,Camry,2018,4.5,Diesel,5744688.11,Sedan,198 hp,190 Nm,6-speed Automatic,Automatic,11.2 kmpl,5
+BMW,7 Series,2021,2.7,Diesel,4954294.645,Sedan,340 hp,450 Nm,8-speed Automatic,Automatic,11.86 kmpl,5
+Chevrolet,Spark,2021,1.7,Hybrid,1925837.32,Sedan,180 hp,465 Nm,6-speed Automatic,Automatic,16.4 kmpl,5
+Mercedes-Benz,E-Class,2021,1.6,Hybrid,4238691.295,Sedan,308 hp,515 Nm,7-speed Automatic,Automatic,15.0 kmpl,4
+Toyota,Corolla,2022,4.8,Petrol,5502066.335,Sedan,101 hp,572 Nm,8-speed Automatic,Automatic,13.3 kmpl,5
+Ford,Explorer,2022,3.1,Electric,5382814.14,SUV,154 hp,254 Nm,6-speed Automatic,Automatic,408 km/full charge,5
+Audi,A4,2021,4.9,Petrol,2265532.02,Sedan,375 hp,509 Nm,CVT,Automatic,15.7 kmpl,6
+Toyota,Highlander,2022,3.2,Petrol,3974341.15,Sedan,393 hp,518 Nm,7-speed Automatic,Automatic,18.9 kmpl,7
+Chevrolet,Malibu,2021,3.1,Petrol,5727763.495,Sedan,303 hp,468 Nm,7-speed Automatic,Automatic,12.8 kmpl,7
+Audi,Q5,2021,4,Electric,5269438.675,Sedan,283 hp,524 Nm,5-speed Manual,Manual,323 km/full charge,7
+Mercedes-Benz,GLA,2019,2,Electric,2061703.51,Sedan,214 hp,539 Nm,CVT,Automatic,367 km/full charge,5
+Nissan,Versa,2022,2.1,Petrol,1683230.575,Sedan,135 hp,300 Nm,6-speed Automatic,Automatic,14.1 kmpl,7
+Mercedes-Benz,S-Class,2020,4,Hybrid,3321198.305,Sedan,261 hp,480 Nm,5-speed Manual,Manual,18.0 kmpl,6
+Audi,Q5,2019,1.2,Petrol,1325964.135,Sedan,133 hp,323 Nm,CVT,Automatic,14.6 kmpl,7
+Audi,A4,2021,5,Hybrid,4243165.225,Sedan,235 hp,579 Nm,CVT,Automatic,15.2 kmpl,6
+Ford,Focus,2021,1.1,Electric,6606316.26,Sedan,374 hp,582 Nm,7-speed Automatic,Automatic,394 km/full charge,4
+Audi,A6,2018,3.7,Electric,3282678.085,Sedan,146 hp,356 Nm,6-speed Automatic,Automatic,400 km/full charge,6
+Hyundai,Tucson,2019,1.2,Electric,6208079.71,Sedan,388 hp,345 Nm,8-speed Automatic,Automatic,451 km/full charge,7
+Toyota,Corolla,2022,4.4,Diesel,4790545.3,Sedan,281 hp,567 Nm,6-speed Automatic,Automatic,10.2 kmpl,5
+Hyundai,Sonata,2022,3.7,Electric,3731763.63,Sedan,388 hp,282 Nm,CVT,Automatic,417 km/full charge,6
+Audi,A3,2022,1.8,Diesel,4785612.955,Sedan,273 hp,477 Nm,CVT,Automatic,19.5 kmpl,4
+Volkswagen,Jetta,2018,1.3,Petrol,2152325.225,Sedan,324 hp,201 Nm,CVT,Automatic,17.7 kmpl,5
+Toyota,Highlander,2018,3.8,Diesel,4819910.58,Sedan,276 hp,349 Nm,7-speed Automatic,Automatic,18.9 kmpl,6
+Volkswagen,Atlas,2022,2.5,Petrol,2025424.43,Sedan,254 hp,319 Nm,8-speed Automatic,Automatic,16.5 kmpl,7
+Nissan,Versa,2019,3.5,Diesel,1606750.42,Sedan,329 hp,563 Nm,8-speed Automatic,Automatic,14.2 kmpl,7
+BMW,X5,2022,2.6,Petrol,1919930.53,Sedan,379 hp,378 Nm,7-speed Automatic,Automatic,19.6 kmpl,7
+Mercedes-Benz,S-Class,2021,1.5,Diesel,1975636.72,Sedan,163 hp,466 Nm,CVT,Automatic,11.1 kmpl,4
+Ford,Explorer,2022,1,Petrol,4155840.925,SUV,256 hp,311 Nm,6-speed Manual,Manual,10.0 kmpl,5
+Ford,Mustang,2018,2.1,Diesel,1992769.25,Coupe,328 hp,464 Nm,CVT,Automatic,12.9 kmpl,7
+BMW,5 Series,2021,1.2,Electric,6344090.355,Sedan,198 hp,406 Nm,6-speed Manual,Manual,498 km/full charge,7

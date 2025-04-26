@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Cars - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+        }
+        
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-header i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu li a {
+            padding: 12px 20px;
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-menu li a:hover,
+        .sidebar-menu li a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .header {
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .header-title h1 {
+            font-size: 22px;
+            font-weight: 500;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-info {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        .admin-name {
+            font-weight: 500;
+        }
+        
+        .admin-role {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn i {
+            margin-right: 5px;
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+        
+        .stat-icon.blue {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--primary);
+        }
+        
+        .stat-icon.green {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+        }
+        
+        .stat-icon.orange {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+        
+        .stat-icon.red {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+        }
+        
+        .stat-info h3 {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .stat-info p {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        table th {
+            background-color: #f9f9f9;
+            font-weight: 500;
+        }
+        
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .car-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .edit-btn {
+            background-color: var(--primary);
+        }
+        
+        .edit-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .delete-btn {
+            background-color: var(--danger);
+        }
+        
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-primary {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--primary);
+        }
+        
+        .badge-success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+        }
+        
+        .badge-warning {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+        
+        .badge-danger {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+        }
+        
+        /* For image preview */
+        .image-preview {
+            width: 150px;
+            height: 100px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.active {
+            transform: translateX(0);
+        }
+        
+        .notification-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .notification-success .notification-icon {
+            background-color: var(--success);
+        }
+        
+        .notification-error .notification-icon {
+            background-color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-car"></i>
+                <h2>Premium Cars</h2>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" id="dashboard-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#" id="cars-link"><i class="fas fa-car"></i> Car Management</a></li>
+                <li><a href="#" id="website-link"><i class="fas fa-globe"></i> Website Content</a></li>
+                <li><a href="#" id="users-link"><i class="fas fa-users"></i> Users</a></li>
+                <li><a href="#" id="bookings-link"><i class="fas fa-calendar-check"></i> Test Drive Bookings</a></li>
+                <li><a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-title">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="header-actions">
+                    <div class="admin-info">
+                        <div class="admin-avatar">A</div>
+                        <div>
+                            <div class="admin-name">Admin User</div>
+                            <div class="admin-role">Super Admin</div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-sm" id="view-site-btn"><i class="fas fa-external-link-alt"></i> View Site</a>
+                </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div id="dashboard-section">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Cars</h3>
+                            <p>24</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Users</h3>
+                            <p>1,245</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Test Drives</h3>
+                            <p>37</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon red">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Inquiries</h3>
+                            <p>18</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Activities</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>User</th>
+                                <th>Date & Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Updated BMW X5 details</td>
+                                <td>Admin User</td>
+                                <td>Apr 04, 2025 10:23 AM</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Added new Audi Q8</td>
+                                <td>Content Manager</td>
+                                <td>Apr 03, 2025 02:45 PM</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Updated hero section content</td>
+                                <td>Admin User</td>
+                                <td>Apr 02, 2025 11:30 AM</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Approved test drive booking</td>
+                                <td>Sales Manager</td>
+                                <td>Apr 02, 2025 09:15 AM</td>
+                                <td><span class="badge badge-primary">Processed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Car Management Section -->
+            <div id="cars-section" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Car Management</h2>
+                        <button class="btn" id="add-car-btn"><i class="fas fa-plus"></i> Add New Car</button>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Model</th>
+                                <th>Type</th>
+                                <th>Fuel</th>
+                                <th>Transmission</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="image-preview">
+                                        <img src="/api/placeholder/75/50" alt="BMW X5">
+                                    </div>
+                                </td>
+                                <td>BMW X5</td>
+                                <td>SUV</td>
+                                <td>Diesel</td>
+                                <td>Automatic</td>
+                                <td>$65,000</td>
+                                <td><span class="badge badge-primary">New</span></td>
+                                <td>
+                                    <div class="car-actions">
+                                        <div class="action-btn edit-btn" onclick="openEditCarModal('BMW X5')"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn delete-btn" onclick="confirmDelete('BMW X5')"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="image-preview">
+                                        <img src="/api/placeholder/75/50" alt="Mercedes C-Class">
+                                    </div>
+                                </td>
+                                <td>Mercedes C-Class</td>
+                                <td>Sedan</td>
+                                <td>Petrol</td>
+                                <td>Automatic</td>
+                                <td>$48,500</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="car-actions">
+                                        <div class="action-btn edit-btn" onclick="openEditCarModal('Mercedes C-Class')"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn delete-btn" onclick="confirmDelete('Mercedes C-Class')"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="image-preview">
+                                        <img src="/api/placeholder/75/50" alt="Audi Q7">
+                                    </div>
+                                </td>
+                                <td>Audi Q7</td>
+                                <td>SUV</td>
+                                <td>Hybrid</td>
+                                <td>Automatic</td>
+                                <td>$71,200</td>
+                                <td><span class="badge badge-warning">Featured</span></td>
+                                <td>
+                                    <div class="car-actions">
+                                        <div class="action-btn edit-btn" onclick="openEditCarModal('Audi Q7')"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn delete-btn" onclick="confirmDelete('Audi Q7')"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="image-preview">
+                                        <img src="/api/placeholder/75/50" alt="Lexus ES">
+                                    </div>
+                                </td>
+                                <td>Lexus ES</td>
+                                <td>Sedan</td>
+                                <td>Petrol</td>
+                                <td>Automatic</td>
+                                <td>$52,800</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="car-actions">
+                                        <div class="action-btn edit-btn" onclick="openEditCarModal('Lexus ES')"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn delete-btn" onclick="confirmDelete('Lexus ES')"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Website Content Section -->
+            <div id="website-section" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Website Content Management</h2>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hero-title">Hero Section Title</label>
+                        <input type="text" id="hero-title" class="form-control" value="Experience Luxury Driving">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hero-description">Hero Section Description</label>
+                        <textarea id="hero-description" class="form-control" rows="3">Discover our exclusive collection of premium vehicles crafted for performance and elegance</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="featured-models-title">Featured Models Section Title</label>
+                        <input type="text" id="featured-models-title" class="form-control" value="Our Featured Models">
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button class="btn btn-success" onclick="saveWebsiteContent()"><i class="fas fa-save"></i> Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Car Edit Modal -->
+    <div class="modal" id="edit-car-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Car Details</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-car-form">
+                    <input type="hidden" id="car-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="car-model">Car Model</label>
+                            <input type="text" id="car-model" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="car-type">Vehicle Type</label>
+                            <select id="car-type" class="form-control" required>
+                                <option value="SUV">SUV</option>
+                                <option value="Sedan">Sedan</option>
+                                <option value="Coupe">Coupe</option>
+                                <option value="Convertible">Convertible</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="car-fuel">Fuel Type</label>
+                            <select id="car-fuel" class="form-control" required>
+                                <option value="Petrol">Petrol</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Electric">Electric</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="car-transmission">Transmission</label>
+                            <select id="car-transmission" class="form-control" required>
+                                <option value="Automatic">Automatic</option>
+                                <option value="Manual">Manual</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="car-price">Price ($)</label>
+                            <input type="number" id="car-price" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="car-status">Status</label>
+                            <select id="car-status" class="form-control" required>
+                                <option value="New">New</option>
+                                <option value="Featured">Featured</option>
+                                <option value="Active">Active</option>
+                                <option value="Sold">Sold</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="car-image">Car Image</label>
+                        <input type="file" id="car-image" class="form-control">
+                        <div class="image-preview" id="car-image-preview">
+                            <img src="/api/placeholder/150/100" alt="Car Preview">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-success" onclick="saveCarChanges()"><i class="fas fa-save"></i> Save Changes</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="delete-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm Delete</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <span id="delete-car-name"></span>? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="deleteCar()"><i class="fas fa-trash"></i> Delete</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification notification-success" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="notification-message">Changes saved successfully!</div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const dashboardLink = document.getElementById('dashboard-link');
+        const carsLink = document.getElementById('cars-link');
+        const websiteLink = document.getElementById('website-link');
+        const usersLink = document.getElementById('users-link');
+        const bookingsLink = document.getElementById('bookings-link');
+        const settingsLink = document.getElementById('settings-link');
+        
+        const dashboardSection = document.getElementById('dashboard-section');
+        const carsSection = document.getElementById('cars-section');

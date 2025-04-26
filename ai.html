@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Virtual Car Showroom</title>
+    <style>
+        :root {
+            --primary: #0066cc;
+            --secondary: #ff6600;
+            --light: #f5f5f5;
+            --dark: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        nav {
+            background-color: var(--dark);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e65c00;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .car-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .car-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .car-details {
+            padding: 1.5rem;
+        }
+        
+        .car-details h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .car-details p {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+        
+        .car-details .price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .car-details .btn {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .recommendation-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .recommendation-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .form-submit {
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+        
+        .virtual-tour {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .tour-container {
+            position: relative;
+            height: 400px;
+            background: url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .tour-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .tour-controls button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .car-description {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .car-description.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .description-content {
+            background-color: white;
+            max-width: 800px;
+            width: 90%;
+            padding: 2rem;
+            border-radius: 10px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .car-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Virtual Car Showroom</h1>
+        <p>Discover your perfect car with our AI-powered virtual experience</p>
+    </header>
+    
+    <nav>
+        <a href="#featured">Featured Cars</a>
+        <a href="#recommendation">Car Recommendations</a>
+        <a href="#virtual-tour">Virtual Tour</a>
+        <a href="#contact">Contact Us</a>
+    </nav>
+    
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Experience Cars Like Never Before</h1>
+                <p>Our AI-powered virtual showroom allows you to explore, compare, and find your perfect car from the comfort of your home.</p>
+                <a href="#recommendation" class="btn">Get Personalized Recommendations</a>
+            </div>
+        </section>
+        
+        <section id="featured">
+            <h2 class="section-title">Featured Cars</h2>
+            <div class="car-grid">
+                <div class="car-card">
+                    <div class="car-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                    <div class="car-details">
+                        <h3>Tesla Model S</h3>
+                        <p>Electric Sedan</p>
+                        <p class="price">$89,990</p>
+                        <a href="#" class="btn view-car" data-car="tesla-model-s">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                    <div class="car-details">
+                        <h3>BMW iX</h3>
+                        <p>Electric SUV</p>
+                        <p class="price">$84,100</p>
+                        <a href="#" class="btn view-car" data-car="bmw-ix">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                    <div class="car-details">
+                        <h3>Ford F-150 Lightning</h3>
+                        <p>Electric Pickup</p>
+                        <p class="price">$49,995</p>
+                        <a href="#" class="btn view-car" data-car="ford-f150-lightning">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                    <div class="car-details">
+                        <h3>Toyota Camry</h3>
+                        <p>Hybrid Sedan</p>
+                        <p class="price">$27,980</p>
+                        <a href="#" class="btn view-car" data-car="toyota-camry">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="recommendation" class="recommendation-section">
+            <h2 class="section-title">Get Personalized Car Recommendations</h2>
+            <p>Tell us about your preferences and our AI will suggest the perfect cars for you.</p>
+            
+            <form id="recommendation-form" class="recommendation-form">
+                <div class="form-group">
+                    <label for="budget">Budget Range</label>
+                    <select id="budget" name="budget">
+                        <option value="under-20k">Under $20,000</option>
+                        <option value="20k-40k">$20,000 - $40,000</option>
+                        <option value="40k-60k">$40,000 - $60,000</option>
+                        <option value="60k-80k">$60,000 - $80,000</option>
+                        <option value="80k-plus">$80,000+</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vehicle-type">Vehicle Type</label>
+                    <select id="vehicle-type" name="vehicle-type">
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="pickup">Pickup Truck</option>
+                        <option value="coupe">Coupe</option>
+                        <option value="hatchback">Hatchback</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fuel-type">Fuel Type</label>
+                    <select id="fuel-type" name="fuel-type">
+                        <option value="gasoline">Gasoline</option>
+                        <option value="electric">Electric</option>
+                        <option value="hybrid">Hybrid</option>
+                        <option value="diesel">Diesel</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="features">Must-Have Features</label>
+                    <select id="features" name="features">
+                        <option value="safety">Advanced Safety Features</option>
+                        <option value="tech">Latest Technology</option>
+                        <option value="comfort">Premium Comfort</option>
+                        <option value="performance">High Performance</option>
+                    </select>
+                </div>
+                
+                <div class="form-submit">
+                    <button type="submit" class="btn">Get Recommendations</button>
+                </div>
+            </form>
+            
+            <div id="recommendation-results"></div>
+        </section>
+        
+        <section id="virtual-tour" class="virtual-tour">
+            <h2 class="section-title">Take a Virtual Tour</h2>
+            <p>Explore cars in 360° with our interactive virtual tour.</p>
+            
+            <div class="tour-container">
+                <!-- Virtual tour would be embedded here -->
+            </div>
+            
+            <div class="tour-controls">
+                <button>Interior View</button>
+                <button>Exterior View</button>
+                <button>Features Tour</button>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="contact">
+        <h3>Contact Us</h3>
+        <p>Have questions? Our AI assistant is ready to help.</p>
+        <p>Email: info@aivirtualcarshowroom.com</p>
+        <p>Phone: (555) 123-4567</p>
+        <p>&copy; 2025 AI Virtual Car Showroom. All Rights Reserved.</p>
+    </footer>
+    
+    <!-- Car Description Modal -->
+    <div class="car-description" id="car-description-modal">
+        <div class="description-content">
+            <button class="close-btn">&times;</button>
+            <div id="car-description-content"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Car data
+        const carData = {
+            "tesla-model-s": {
+                name: "Tesla Model S",
+                type: "Electric Sedan",
+                price: "$89,990",
+                range: "405 miles",
+                acceleration: "0-60 mph in 3.1 seconds",
+                topSpeed: "155 mph",
+            }
+        }

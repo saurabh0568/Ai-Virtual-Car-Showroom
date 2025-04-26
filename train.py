@@ -7,12 +7,12 @@ from sklearn.pipeline import Pipeline
 import joblib
 
 # Load dataset
-file_path = "car_performance_dataset.csv"
+file_path = "customization_dataset.csv"
 df = pd.read_csv(file_path)
 
 # Selecting relevant features
-features = ["Car_Brand", "Model", "Engine_Type", "Driving_Condition", "Road_Type", "Weather_Condition", "Driver_Experience"]
-targets = ["Fuel_Efficiency", "Safety_Rating", "Price", "Comfort_Rating"]
+features = ["Car_Brand", "Model", "Engine_Type", "Driving_Condition", "Rim_Wheel_Size","Rim_Wheel_Style","Rim_Wheel_Material", "Power_Upgrade", "Turbo_Supercharger","Weather_Condition", "Driver_Experience"]
+targets = ["Fuel_Efficiency", "Safety_Rating", "Price_IR", "Comfort_Rating", "Engine_Performance", "Suspension_Performance"]
 
 # Drop rows with missing values
 df = df.dropna(subset=features + targets)

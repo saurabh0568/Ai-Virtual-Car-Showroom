@@ -1,26 +1,18 @@
-from flask import Flask, jsonify
+from flask import Flask, render_template
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
-# Connect to MongoDB
+# Make sure your DB name is correct here
 app.config["MONGO_URI"] = "mongodb://localhost:27017/car_list"
 mongo = PyMongo(app)
 
-@app.route('/cars')
-def get_cars():
-    cars = mongo.db.none.find() 
-    car_list = []
-    for car in cars:
-        car_list.append({
-            'Make': car.get('name', 'Unknown'),
-            'Model': car.get('fuel', 'N/A'),
-            'Year': car.get('transmission', 'N/A'),
-            'Engine Size (L)': car.get('type', 'N/A'),
-            'price': car.get('price', '0'),
-            'status': car.get('status', '')  # New, Featured, etc.
-        })
-    return jsonify(car_list)
+@app.route('/')
+def show_cars():
+    # Convert cursor to list
+    cars = list(mongo.db.cars.find())
+    print("Fetched cars:", cars) 
+    return render_template('da.html', cars=cars)
 
 if __name__ == '__main__':
     app.run(debug=True)
