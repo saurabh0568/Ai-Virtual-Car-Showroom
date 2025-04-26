@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car Showroom Room</title>
+  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+  <style>
+    #messages {
+      height: 200px;
+      overflow-y: scroll;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Room ID: {{ room_id }}</h2>
+
+  <!-- Car showroom content goes here -->
+  <div id="car-showroom-content">
+    <h3>Welcome to the Collaborative Car Showroom!</h3>
+    <p>Click the button below to simulate an action (this will sync with other users in the same room).</p>
+    <button onclick="exampleSyncAction()">Simulate Action</button>
+  </div>
+
+  <!-- Chat Box -->
+  <div>
+    <ul id="messages"></ul>
+    <input id="msg" autocomplete="off" /><button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    const roomId = "{{ room_id }}";
+    const socket = io();
+
+    // Join the room
+    socket.emit('join', roomId);
+
+    // Receive messages
+    socket.on('chat_message', data => {
+      const item = document.createElement('li');
+      item.textContent = data;
+      document.getElementById('messages').appendChild(item);
+    });
+
+    // Send chat message
+    function sendMessage() {
+      const input = document.getElementById('msg');
+      socket.emit('chat_message', { room: roomId, message: input.value });
+      input.value = '';
+    }
+
+    // Simulate user action (e.g., clicking a button)
+    function exampleSyncAction() {
+      socket.emit('sync_event', { room: roomId, action: 'clicked' });
+    }
+
+    // Sync user actions across all room members
+    socket.on('sync_event', data => {
+      alert("Another user triggered: " + data.action);
+    });
+  </script>
+</body>
+</html>

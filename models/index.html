@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S2 CarHub - Premium Car Showroom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+    <!-- Join Box -->
+    <div id="joinBox">
+        <h2>Join a Room</h2>
+        <label>Room ID: <input id="roomIdInput" /></label>
+        <button onclick="joinRoom()">Join Room</button>
+    </div>
+
+    <!-- Main Content (Initially hidden) -->
+    <div id="mainContent" style="display: none;">
+        <header>
+            <div class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-car"></i>
+                    S2 CarHub
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-car"></i> Models</a></li>
+                        <li><a href="#"><i class="fas fa-cogs"></i> Services</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Dealers</a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Experience Luxury Driving</h1>
+                <p>Discover our exclusive collection of premium vehicles crafted for performance and elegance</p>
+                <a href="custom.html" class="btn btn-primary"><i class="fas fa-car-side"></i> Customize Models</a>
+            </div>
+        </section>
+
+        <main>
+            <h2 class="section-title">Our Featured Models</h2>
+            
+            <!-- Utility Buttons Section -->
+            <div class="utility-buttons">
+                <a href="#" class="utility-btn">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Comparison</span>
+                </a>
+                <a href="#" class="utility-btn">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Meeting</span>
+                </a>
+                <a href="#" class="utility-btn">
+                    <i class="far fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+                <a href="#" class="utility-btn">
+                    <i class="far fa-star"></i>
+                    <span>Favorite</span>
+                </a>
+                <a href="#" class="utility-btn">
+                    <i class="fas fa-id-card"></i>
+                    <span>Recognize</span>
+                </a>
+            </div>
+            
+            <div class="container">
+                <aside>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Search models...">
+                    </div>
+                    
+                    <h3>Filter Options</h3>
+                    
+                    <div class="filter-group">
+                        <h4><i class="fas fa-car-side"></i> Vehicle Type</h4>
+                        <div class="filter-options" id="type-filters">
+                            <label class="filter-option">
+                                <input type="checkbox" value="SUV"> SUV
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Sedan"> Sedan
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Coupe"> Coupe
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Convertible"> Convertible
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Hatchback"> Hatchback
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4><i class="fas fa-building"></i> Brand</h4>
+                        <div class="filter-options" id="brand-filters">
+                            <label class="filter-option">
+                                <input type="checkbox" value="BMW"> BMW
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Mercedes"> Mercedes
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Audi"> Audi
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Lexus"> Lexus
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Toyota"> Toyota
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Honda"> Honda
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4><i class="fas fa-dollar-sign"></i> Price Range</h4>
+                        <div class="filter-options" id="price-filters">
+                            <label class="filter-option">
+                                <input type="checkbox" value="under-50000"> Under $50,000
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="50000-100000"> $50,000 - $100,000
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="over-100000"> $100,000+
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4><i class="fas fa-gas-pump"></i> Fuel Type</h4>
+                        <div class="filter-options" id="fuel-filters">
+                            <label class="filter-option">
+                                <input type="checkbox" value="Petrol"> Petrol
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Diesel"> Diesel
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Electric"> Electric
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="Hybrid"> Hybrid
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-button-group">
+                        <button id="apply-filters" class="btn btn-primary"><i class="fas fa-filter"></i> Apply Filters</button>
+                        <button id="clear-filters" class="btn btn-outline"><i class="fas fa-times"></i> Clear</button>
+                    </div>
+                </aside>
+                
+                <!-- Car Cards - Add inside the car-grid div with id="car-grid" -->
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="BMW X5 SUV">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('BMW X5')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">BMW X5 2025</h3>
+                        <p class="car-price">$65,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>320 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>SUV</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Mercedes E-Class Sedan">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Mercedes E-Class')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Mercedes E-Class 2025</h3>
+                        <p class="car-price">$72,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>295 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Diesel</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Sedan</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Audi A5 Coupe">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Audi A5')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Audi A5 2025</h3>
+                        <p class="car-price">$58,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>248 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Coupe</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Lexus RX Hybrid">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Lexus RX')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Lexus RX 2025</h3>
+                        <p class="car-price">$54,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>308 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Hybrid</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>SUV</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Toyota Camry Sedan">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Toyota Camry')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Toyota Camry 2025</h3>
+                        <p class="car-price">$35,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>203 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Sedan</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Honda Civic Hatchback">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Honda Civic')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Honda Civic 2025</h3>
+                        <p class="car-price">$28,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>180 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Hatchback</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="BMW M4 Coupe">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('BMW M4')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">BMW M4 2025</h3>
+                        <p class="car-price">$88,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>473 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Coupe</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Mercedes S-Class Sedan">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Mercedes S-Class')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Mercedes S-Class 2025</h3>
+                        <p class="car-price">$115,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>429 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Sedan</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Audi e-tron SUV">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Audi e-tron')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Audi e-tron 2025</h3>
+                        <p class="car-price">$75,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>355 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Electric</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>SUV</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Lexus LC Convertible">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Lexus LC')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Lexus LC 2025</h3>
+                        <p class="car-price">$105,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>471 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Convertible</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Toyota Prius Hybrid">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Toyota Prius')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Toyota Prius 2025</h3>
+                        <p class="car-price">$30,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>196 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Hybrid</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Hatchback</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Honda Accord Sedan">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Honda Accord')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Honda Accord 2025</h3>
+                        <p class="car-price">$32,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>192 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Sedan</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="BMW i4 Electric">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('BMW i4')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">BMW i4 2025</h3>
+                        <p class="car-price">$68,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>335 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Electric</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Sedan</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Mercedes GLB SUV">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Mercedes GLB')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Mercedes GLB 2025</h3>
+                        <p class="car-price">$42,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>221 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>SUV</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Audi RS5 Coupe">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Audi RS5')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Audi RS5 2025</h3>
+                        <p class="car-price">$82,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>444 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Coupe</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Lexus ES Sedan">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Lexus ES')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Lexus ES 2025</h3>
+                        <p class="car-price">$45,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>302 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Sedan</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Toyota RAV4 SUV">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Toyota RAV4')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Toyota RAV4 2025</h3>
+                        <p class="car-price">$34,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>203 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>SUV</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Honda CR-V SUV">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Honda CR-V')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Honda CR-V 2025</h3>
+                        <p class="car-price">$33,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>190 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Hybrid</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>SUV</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="BMW 7 Series Sedan">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('BMW 7 Series')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">BMW 7 Series 2025</h3>
+                        <p class="car-price">$98,000</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>375 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Petrol</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>Sedan</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/300/200" alt="Mercedes GLE SUV">
+                        <div class="car-overlay">
+                            <button class="btn-view" onclick="showDetails('Mercedes GLE')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Mercedes GLE 2025</h3>
+                        <p class="car-price">$65,500</p>
+                        <div class="car-specs">
+                            <div class="car-spec"><i class="fas fa-tachometer-alt"></i> <span>362 HP</span></div>
+                            <div class="car-spec"><i class="fas fa-gas-pump"></i> <span>Diesel</span></div>
+                            <div class="car-spec"><i class="fas fa-car-side"></i> <span>SUV</span></div>
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="car-action"><i class="far fa-heart"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-exchange-alt"></i></a>
+                            <a href="#" class="car-action"><i class="fas fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div class="chatbot">
+            <a href="#" id="chat-toggle">
+                <i class="fas fa-comments"></i>
+            </a>
+        </div>
+        
+        <div id="chat">
+            <h3>Chat</h3>
+            <div id="messages"></div>
+            <div class="chat-input-container">
+                <input id="messageInput" placeholder="Type a message..." />
+                <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>S2 CarHub</h3>
+                    <p>Experience luxury and performance with our exclusive collection of high-end vehicles from the world's most prestigious manufacturers.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Models</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Dealers</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Car Purchase</a></li>
+                        <li><a href="#">Financing Options</a></li>
+                        <li><a href="#">Maintenance</a></li>
+                        <li><a href="#">Extended Warranty</a></li>
+                        <li><a href="#">Car Insurance</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <p>Helpline: +1 800-123-4567</p>
+                                <p>Mon-Sat: 9:00 AM - 8:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <p>info@s2carhub.com</p>
+                                <p>support@s2carhub.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <p>123 Luxury Lane, Automobile District</p>
+                                <p>Premium City, PC 12345</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 S2 CarHub. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="filter.js"></script>
+</body>
+</html>

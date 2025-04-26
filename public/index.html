@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Car Showroom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="front.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #f8f9fa;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Join Room Modal Styling */
+        #joinBox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .join-container {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 480px;
+            padding: 2rem;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .join-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .join-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .join-header p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .join-logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .join-logo i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+        }
+
+        .join-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 1px solid #ced4da;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .join-btn {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.8rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .join-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .join-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .join-options a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .join-options a:hover {
+            text-decoration: underline;
+        }
+
+        .recent-rooms {
+            margin-top: 1.5rem;
+            border-top: 1px solid #dee2e6;
+            padding-top: 1.5rem;
+        }
+
+        .recent-rooms h3 {
+            font-size: 1rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .room-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .room-item {
+            background-color: #e9ecef;
+            border-radius: 4px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .room-item:hover {
+            background-color: #dee2e6;
+        }
+
+        /* Chat Panel Styling */
+        #chat {
+            width: 300px;
+            height: 100vh;
+            background: #f8f9fa;
+            overflow-y: auto;
+            padding: 1rem;
+            border-left: 1px solid #dee2e6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chat h3 {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #chat h3 span {
+            font-size: 0.85rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50px;
+            padding: 0.2rem 0.6rem;
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .message {
+            padding: 0.8rem;
+            border-radius: 8px;
+            max-width: 85%;
+            position: relative;
+        }
+
+        .message-incoming {
+            align-self: flex-start;
+            background-color: #e9ecef;
+        }
+
+        .message-outgoing {
+            align-self: flex-end;
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .message-sender {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-bottom: 0.2rem;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            text-align: right;
+            margin-top: 0.2rem;
+        }
+
+        .chat-input-container {
+            position: relative;
+        }
+
+        #messageInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 1rem;
+            border: 1px solid #ced4da;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        #messageInput:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .send-btn {
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* Main Content Area */
+        #mainContent {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        /* Existing Styles from Original File */
+        .utility-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .utility-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--white);
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 120px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .utility-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--secondary-color);
+        }
+        
+        .utility-btn i {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .utility-btn span {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .car-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .car-quick-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+        
+        .car-quick-actions button {
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            transition: color 0.3s ease;
+        }
+        
+        .car-quick-actions button:hover {
+            color: var(--secondary-color);
+        }
+        
+        @media (max-width: 576px) {
+            .utility-buttons {
+                gap: 0.5rem;
+            }
+            
+            .utility-btn {
+                min-width: 100px;
+                padding: 0.8rem;
+            }
+
+            .join-container {
+                margin: 0 1rem;
+            }
+        }
+
+        /* User Status Indicators */
+        .online-users {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .online-users h4 {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 0.8rem;
+        }
+
+        .user-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background-color: #e9ecef;
+            border-radius: 50px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .user-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+  <div id="joinBox">
+    <div class="join-container">
+      <div class="join-logo">
+        <i class="fas fa-car"></i>
+      </div>
+      <div class="join-header">
+        <h2>Welcome to Premium Cars</h2>
+        <p>Join a discussion room to explore luxury vehicles with others</p>
+      </div>
+      <div class="join-form">
+        <div class="form-group">
+          <label for="roomIdInput">Room ID</label>
+          <div class="input-with-icon">
+            <i class="fas fa-door-open"></i>
+            <input type="text" id="roomIdInput" class="form-control" placeholder="Enter room ID to join or create">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="usernameInput">Your Name</label>
+          <div class="input-with-icon">
+            <i class="fas fa-user"></i>
+            <input type="text" id="usernameInput" class="form-control" placeholder="Enter your display name">
+          </div>
+        </div>
+        <button class="join-btn" onclick="joinRoom()">
+          <i class="fas fa-sign-in-alt"></i> Join Room
+        </button>
+      </div>
+      <div class="join-options">
+        <a href="#" onclick="createNewRoom()">Create new room</a>
+        <a href="#" onclick="joinAsGuest()">Join as guest</a>
+      </div>
+      <div class="recent-rooms">
+        <h3>Recently Joined Rooms</h3>
+        <div class="room-list">
+          <div class="room-item" onclick="selectRoom('car-enthusiasts')">car-enthusiasts</div>
+          <div class="room-item" onclick="selectRoom('luxury-sedans')">luxury-sedans</div>
+          <div class="room-item" onclick="selectRoom('suv-lovers')">suv-lovers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="mainContent">
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-car"></i>
+                Premium Cars
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Models</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Dealers</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Experience Luxury Driving</h1>
+            <p>Discover our exclusive collection of premium vehicles crafted for performance and elegance</p>
+            <a href="custom.html" class="btn">Customize Models</a>
+        </div>
+    </section>
+
+    <main>
+        <h2 class="section-title">Our Featured Models</h2>
+        
+        <!-- Added Utility Buttons Section -->
+        <div class="utility-buttons">
+            <a href="#" class="utility-btn">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Comparison</span>
+            </a>
+            <a href="#" class="utility-btn">
+                <i class="far fa-calendar-alt"></i>
+                <span>Meeting</span>
+            </a>
+            <a href="#" class="utility-btn">
+                <i class="far fa-heart"></i>
+                <span>Wishlist</span>
+            </a>
+            <a href="#" class="utility-btn">
+                <i class="far fa-star"></i>
+                <span>Favorite</span>
+            </a>
+            <a href="#" class="utility-btn">
+                <i class="fas fa-id-card"></i>
+                <span>Recognize</span>
+            </a>
+        </div>
+        
+        <div class="container">
+            <aside>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search models...">
+                </div>
+                
+                <h3>Filter Options</h3>
+                
+                <div class="filter-group">
+                    <h4>Vehicle Type</h4>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="checkbox"> SUV
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Sedan
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Coupe
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Convertible
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Brand</h4>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="checkbox"> BMW
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Mercedes
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Audi
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> Lexus
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="checkbox"> Under RS.50,000
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> RS.50,000 - RS.100,000
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox"> RS.100,000+
+                        </label>
+                    </div>
+                </div>
+                
+                <a href="" class="btn btn-sm" style="width: 100%; text-align: center;">Apply Filters</a>
+            </aside>
+            
+            <div class="car-grid">
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/400/250" alt="BMW X5">
+                        <div class="car-badge">New</div>
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">BMW X5</h3>
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Diesel</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-cog"></i>
+                                <span>Automatic</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-road"></i>
+                                <span>SUV</span>
+                            </div>
+                        </div>
+                        <div class="car-price">RS. 65,000</div>
+                        <div class="car-actions">
+                            <button class="btn btn-sm" onclick="showDetails('BMW X5')">View Details</button>
+                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+                        </div>
+                        <!-- Added Quick Action Buttons to Each Card -->
+                        <div class="car-quick-actions">
+                            <button title="Add to Compare"><i class="fas fa-exchange-alt"></i> Compare</button>
+                            <button title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                            <button title="Add to Favorites"><i class="far fa-star"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/400/250" alt="Mercedes C-Class">
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">Mercedes C-Class</h3>
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Petrol</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-cog"></i>
+                                <span>Automatic</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-road"></i>
+                                <span>Sedan</span>
+                            </div>
+                        </div>
+                        <div class="car-price">RS. 48,500</div>
+                        <div class="car-actions">
+                            <button class="btn btn-sm" onclick="showDetails('Mercedes C-Class')">View Details</button>
+                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+                        </div>
+                        <!-- Added Quick Action Buttons to Each Card -->
+                        <div class="car-quick-actions">
+                            <button title="Add to Compare"><i class="fas fa-exchange-alt"></i> Compare</button>
+                            <button title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                            <button title="Add to Favorites"><i class="far fa-star"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="1c.png" alt="Audi Q7">
+                        <div class="car-badge">Featured</div>
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">Audi Q7</h3>
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Hybrid</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-cog"></i>
+                                <span>Automatic</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-road"></i>
+                                <span>SUV</span>
+                            </div>
+                        </div>
+                        <div class="car-price">RS. 71,200</div>
+                        <div class="car-actions">
+                            <button class="btn btn-sm" onclick="showDetails('Audi Q7')">View Details</button>
+                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+                        </div>
+                        <!-- Added Quick Action Buttons to Each Card -->
+                        <div class="car-quick-actions">
+                            <button title="Add to Compare"><i class="fas fa-exchange-alt"></i> Compare</button>
+                            <button title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                            <button title="Add to Favorites"><i class="far fa-star"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="/api/placeholder/400/250" alt="Lexus ES">
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">Lexus ES</h3>
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Petrol</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-cog"></i>
+                                <span>Automatic</span>
+                            </div>
+                            <div class="car-spec">
+                                <i class="fas fa-road"></i>
+                                <span>Sedan</span>
+                            </div>
+                        </div>
+                        <div class="car-price">RS. 52,800</div>
+                        <div class="car-actions">
+                            <button class="btn btn-sm" onclick="showDetails('Lexus ES')">View Details</button>
+                            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+                        </div>
+                        <!-- Added Quick Action Buttons to Each Card -->
+                        <div class="car-quick-actions">
+                            <button title="Add to Compare"><i class="fas fa-exchange-alt"></i> Compare</button>
+                            <button title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                            <button title="Add to Favorites"><i class="far fa-star"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div class="chatbot">
+        <a href="chatbot.html" onclick="openChatbot(event)">
+        <i class="fas fa-comments"></i>
+        </a>
+    </div>
+    <div id="chat">
+      <h3>Room Chat <span id="roomId">car-enthusiasts</span></h3>
+      <div id="messages">
+        <!-- Sample messages for visual demonstration -->
+        
+      </div>
+      <div class="online-users">
+        <h4>Online (3)</h4>
+        <div class="user-list">
+          <div class="user-pill">
+            <div class="user-status"></div>
+            You
+          </div>
+          <div class="user-pill">
+            <div class="user-status"></div>
+            John
+          </div>
+          <div class="user-pill">
+            <div class="user-status"></div>
+            Sarah
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" id="messageInput" placeholder="Type a message..." />
+        <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Premium Cars</h3>
+                <p>Experience luxury and performance with our exclusive collection of high-end vehicles from the world's most prestigious manufacturers.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Models</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Dealers</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Car Purchase</a></li>
+                    <li><a href="#">Financing Options</a></li>
+                    <li><a href="#">Maintenance</a></li>
+                    <li><a href="#">Extended Warranty</a></li>
+                    <li><a href="#">Car Insurance</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p>Helpline: +91 9909861059</p>
+                            <p>Mon-Sat: 9:00 AM - 8:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p>info@premiumcars.com</p>
+                            <p>support@premiumcars.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p>123 Luxury Lane, Automobile District</p>
+                            <p>Premium City, PC 12345</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Premium Cars. All Rights Reserved.</p>
+        </div>
+    </footer>
+  </div>
+  <script src="filter.js"></script>
+  <script>
+    // Main filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+    // Initialize car data
+    const carData = [
+        {
+        id: 1,
+        name: 'BMW X5',
+        type: 'SUV',
+        brand: 'BMW',
+        fuel: 'Diesel',
+        transmission: 'Automatic',
+        price: 65000,
+        image: '/api/placeholder/400/250',
+        badge: 'New'
+        },
+        {
+        id: 2,
+        name: 'Mercedes C-Class',
+        type: 'Sedan',
+        brand: 'Mercedes',
+        fuel: 'Petrol',
+        transmission: 'Automatic',
+        price: 48500,
+        image: '/api/placeholder/400/250'
+        },
+        {
+        id: 3,
+        name: 'Audi Q7',
+        type: 'SUV',
+        brand: 'Audi',
+        fuel: 'Hybrid',
+        transmission: 'Automatic',
+        price: 71200,
+        image: '/api/placeholder/400/250',
+        badge: 'Featured'
+        },
+        {
+        id: 4,
+        name: 'Lexus ES',
+        type: 'Sedan',
+        brand: 'Lexus',
+        fuel: 'Petrol',
+        transmission: 'Automatic',
+        price: 52800,
+        image: '/api/placeholder/400/250'
+        }
+    ];
+
+    // DOM elements
+    const carGrid = document.querySelector('.car-grid');
+    const filterCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
+    const searchInput = document.querySelector('.search-box input');
+    const applyFiltersBtn = document.querySelector('aside .btn');
+
+    // Apply filters button click event
+    applyFiltersBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        filterCars();
+    });
+
+    // Search input event
+    searchInput.addEventListener('input', debounce(function() {
+        filterCars();
+    }, 300));
+
+    // Filter cars based on selected criteria
+    function filterCars() {
+        // Get selected filters
+        const selectedTypes = getSelectedValues('Vehicle Type');
+        const selectedBrands = getSelectedValues('Brand');
+        const selectedPrices = getSelectedValues('Price Range');
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        // Filter cars
+        const filteredCars = carData.filter(car => {
+        // Type filter
+        const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(car.type);
+        
+        // Brand filter
+        const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(car.brand);
+        
+        // Price filter
+        let priceMatch = true;
+        if (selectedPrices.length > 0) {
+            priceMatch = false;
+            if (selectedPrices.includes('Under RS.50,000') && car.price < 50000) {
+            priceMatch = true;
+            }
+            if (selectedPrices.includes('RS.50,000 - RS.100,000') && car.price >= 50000 && car.price <= 100000) {
+            priceMatch = true;
+            }
+            if (selectedPrices.includes('RS.100,000+') && car.price > 100000) {
+            priceMatch = true;
+            }
+        }
+        
+        // Search term match
+        const searchMatch = car.name.toLowerCase().includes(searchTerm) || 
+                            car.brand.toLowerCase().includes(searchTerm) ||
+                            car.type.toLowerCase().includes(searchTerm) ||
+                            car.fuel.toLowerCase().includes(searchTerm);
+        
+        return typeMatch && brandMatch && priceMatch && searchMatch;
+        });
+
+        // Update UI with filtered cars
+        updateCarGrid(filteredCars);
+        
+        // Broadcast filter changes to other users
+        sendFilterUpdate({
+        types: selectedTypes,
+        brands: selectedBrands,
+        prices: selectedPrices,
+        search: searchTerm
+        });
+    }
+
+    // Get selected values for a specific filter group
+    function getSelectedValues(groupName) {
+        const values = [];
+        const filterGroup = document.querySelector(`.filter-group h4:contains('${groupName}')`).closest('.filter-group');
+        const checkboxes = filterGroup.querySelectorAll('input[type="checkbox"]:checked');
+        
+        checkboxes.forEach(checkbox => {
+        values.push(checkbox.closest('.filter-option').textContent.trim());
+        });
+        
+        return values;
+    }
+
+    // Update car grid with filtered cars
+    function updateCarGrid(filteredCars) {
+        carGrid.innerHTML = '';
+        
+        if (filteredCars.length === 0) {
+        carGrid.innerHTML = '<div class="no-results">No cars match your criteria. Please adjust your filters.</div>';
+        return;
+        }
+        
+        filteredCars.forEach(car => {
+        const carCard = createCarCard(car);
+        carGrid.appendChild(carCard);
+        });
+    }
+
+    // Create car card element
+    function createCarCard(car) {
+        const carCard = document.createElement('div');
+        carCard.className = 'car-card';
+        
+        const badgeHtml = car.badge ? `<div class="car-badge">${car.badge}</div>` : '';
+        
+        carCard.innerHTML = `
+        <div class="car-image">
+            <img src="${car.image}" alt="${car.name}">
+            ${badgeHtml}
+        </div>
+        <div class="car-details">
+            <h3 class="car-title">${car.name}</h3>
+            <div class="car-specs">
+            <div class="car-spec">
+                <i class="fas fa-gas-pump"></i>
+                <span>${car.fuel}</span>
+            </div>
+            <div class="car-spec">
+                <i class="fas fa-cog"></i>
+                <span>${car.transmission}</span>
+            </div>
+            <div class="car-spec">
+                <i class="fas fa-road"></i>
+                <span>${car.type}</span>
+            </div>
+            </div>
+            <div class="car-price">RS. ${car.price.toLocaleString()}</div>
+            <div class="car-actions">
+            <button class="btn btn-sm" onclick="showDetails('${car.name}')">View Details</button>
+            <button class="btn btn-sm btn-outline">Book Test Drive</button>
+            </div>
+            <div class="car-quick-actions">
+            <button title="Add to Compare"><i class="fas fa-exchange-alt"></i> Compare</button>
+            <button title="Add to Wishlist"><i class="far fa-heart"></i></button>
+            <button title="Add to Favorites"><i class="far fa-star"></i></button>
+            </div>
+        </div>
+        `;
+        
+        return carCard;
+    }
+
+    // Helper function to find elements by text content
+    HTMLElement.prototype.contains = function(text) {
+        return this.textContent.includes(text);
+    };
+
+    // Debounce function for search input
+    function debounce(func, delay) {
+        let timeout;
+        return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), delay);
+        };
+    }
+
+    // Initialize WebSocket for chat and filtering synchronization
+    initializeWebSocket();
+    });
+
+    // Chat and synchronization functionality
+    let socket;
+    let username;
+    let currentRoom;
+    let reconnectAttempts = 0;
+    const MAX_RECONNECT_ATTEMPTS = 5;
+    const RECONNECT_DELAY = 3000;
+
+    function initializeWebSocket() {
+    // Get or generate username
+    username = localStorage.getItem('premiumCarsUsername') || 'Guest_' + Math.floor(Math.random() * 1000);
+    localStorage.setItem('premiumCarsUsername', username);
+    
+    // Get current room from URL or default
+    const urlParams = new URLSearchParams(window.location.search);
+    currentRoom = urlParams.get('room') || 'car-enthusiasts';
+    
+    // Update room ID display
+    const roomIdElement = document.getElementById('roomId');
+    if (roomIdElement) {
+        roomIdElement.textContent = currentRoom;
+    }
+
+    // Initialize WebSocket connection
+    connectWebSocket();
+    
+    // Set up message sending functionality
+    setupMessageSending();
+    }
+
+    function connectWebSocket() {
+    // Using a secure WebSocket connection
+    socket = new WebSocket('wss://premium-cars-server.example.com');
+
+    socket.onopen = function() {
+        console.log('Connected to WebSocket server');
+        reconnectAttempts = 0;
+        
+        // Join the room
+        const joinMessage = {
+        type: 'join',
+        room: currentRoom,
+        username: username
+        };
+        socket.send(JSON.stringify(joinMessage));
+    };
+
+    socket.onmessage = function(event) {
+        const message = JSON.parse(event.data);
+        
+        switch (message.type) {
+        case 'chat':
+            addChatMessage(message);
+            break;
+        case 'userJoin':
+            updateOnlineUsers(message.users);
+            addSystemMessage(`${message.username} joined the room`);
+            break;
+        case 'userLeave':
+            updateOnlineUsers(message.users);
+            addSystemMessage(`${message.username} left the room`);
+            break;
+        case 'filterUpdate':
+            if (message.username !== username) {
+            applyRemoteFilters(message.filters);
+            }
+            break;
+        }
+    };
+
+    socket.onclose = function() {
+        console.log('WebSocket connection closed');
+        
+        // Attempt to reconnect
+        if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+        reconnectAttempts++;
+        setTimeout(connectWebSocket, RECONNECT_DELAY);
+        addSystemMessage(`Connection lost. Reconnecting... (${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
+        } else {
+        addSystemMessage('Connection lost. Please refresh the page to reconnect.');
+        }
+    };
+
+    socket.onerror = function(error) {
+        console.error('WebSocket error:', error);
+        addSystemMessage('Connection error. Please check your internet connection.');
+    };
+    }
+
+    function setupMessageSending() {
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.querySelector('.send-btn');
+    
+    if (!messageInput || !sendButton) return;
+    
+    // Send button click event
+    sendButton.addEventListener('click', sendMessage);
+    
+    // Enter key to send message
+    messageInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
+        }
+    });
+    }
+
+    function sendMessage() {
+    const messageInput = document.getElementById('messageInput');
+    const message = messageInput.value.trim();
+    
+    if (message && socket.readyState === WebSocket.OPEN) {
+        const chatMessage = {
+        type: 'chat',
+        room: currentRoom,
+        username: username,
+        message: message,
+        timestamp: new Date().toISOString()
+        };
+        
+        socket.send(JSON.stringify(chatMessage));
+        messageInput.value = '';
+    }
+    }
+
+    function addChatMessage(messageData) {
+    const messagesContainer = document.getElementById('messages');
+    if (!messagesContainer) return;
+    
+    const messageElement = document.createElement('div');
+    messageElement.className = messageData.username === username ? 'message own-message' : 'message';
+    
+    const time = new Date(messageData.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    messageElement.innerHTML = `
+        <div class="message-header">
+        <span class="message-username">${messageData.username === username ? 'You' : messageData.username}</span>
+        <span class="message-time">${time}</span>
+        </div>
+        <div class="message-content">${messageData.message}</div>
+    `;
+    
+    messagesContainer.appendChild(messageElement);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function addSystemMessage(text) {
+    const messagesContainer = document.getElementById('messages');
+    if (!messagesContainer) return;
+    
+    const messageElement = document.createElement('div');
+    messageElement.className = 'message system-message';
+    messageElement.innerHTML = `<div class="message-content">${text}</div>`;
+    
+    messagesContainer.appendChild(messageElement);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function updateOnlineUsers(users) {
+    const userList = document.querySelector('.user-list');
+    if (!userList) return;
+    
+    userList.innerHTML = '';
+    
+    // Add current user first
+    const currentUserElement = document.createElement('div');
+    currentUserElement.className = 'user-pill';
+    currentUserElement.innerHTML = `
+        <div class="user-status"></div>
+        You
+    `;
+    userList.appendChild(currentUserElement);
+    
+    // Add other users
+    users.forEach(user => {
+        if (user !== username) {
+        const userElement = document.createElement('div');
+        userElement.className = 'user-pill';
+        userElement.innerHTML = `
+            <div class="user-status"></div>
+            ${user}
+        `;
+        userList.appendChild(userElement);
+        }
+    });
+    
+    // Update the count
+    const countElement = document.querySelector('.online-users h4');
+    if (countElement) {
+        countElement.textContent = `Online (${users.length})`;
+    }
+    }
+
+    function sendFilterUpdate(filters) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+        const filterMessage = {
+        type: 'filterUpdate',
+        room: currentRoom,
+        username: username,
+        filters: filters
+        };
+        
+        socket.send(JSON.stringify(filterMessage));
+    }
+    }
+
+    function applyRemoteFilters(filters) {
+    // Set search input
+    const searchInput = document.querySelector('.search-box input');
+    if (searchInput) {
+        searchInput.value = filters.search;
+    }
+    
+    // Set checkboxes based on filters
+    setCheckboxesByFilter('Vehicle Type', filters.types);
+    setCheckboxesByFilter('Brand', filters.brands);
+    setCheckboxesByFilter('Price Range', filters.prices);
+    
+    // Trigger filter update
+    const applyFiltersBtn = document.querySelector('aside .btn');
+    if (applyFiltersBtn) {
+        applyFiltersBtn.click();
+    }
+    
+    // Add system message
+    addSystemMessage('Filter settings updated by another user');
+    }
+
+    function setCheckboxesByFilter(groupName, values) {
+    const filterGroup = document.querySelector(`.filter-group h4:contains('${groupName}')`).closest('.filter-group');
+    const checkboxes = filterGroup.querySelectorAll('input[type="checkbox"]');
+    
+    checkboxes.forEach(checkbox => {
+        const optionText = checkbox.closest('.filter-option').textContent.trim();
+        checkbox.checked = values.includes(optionText);
+    });
+    }
+
+    // Room joining functionality
+    function joinRoom() {
+    const roomId = document.getElementById('roomIdInput').value.trim();
+    const usernameInput = document.getElementById('usernameInput').value.trim();
+    
+    if (roomId && usernameInput) {
+        // Save username
+        localStorage.setItem('premiumCarsUsername', usernameInput);
+        
+        // Redirect to room
+        window.location.href = `?room=${roomId}`;
+    } else {
+        alert('Please enter both Room ID and your name');
+    }
+    }
+
+    function createNewRoom() {
+    const randomRoomId = 'room-' + Math.random().toString(36).substring(2, 8);
+    document.getElementById('roomIdInput').value = randomRoomId;
+    }
+
+    function joinAsGuest() {
+    const guestName = 'Guest_' + Math.floor(Math.random() * 1000);
+    document.getElementById('usernameInput').value = guestName;
+    }
+
+    function selectRoom(roomId) {
+    document.getElementById('roomIdInput').value = roomId;
+    }
+
+    function openChatbot(event) {
+    event.preventDefault();
+    const chat = document.getElementById('chat');
+    chat.classList.toggle('visible');
+    }
+
+    // Show car details function
+    function showDetails(carName) {
+    alert(`Details for ${carName} will be displayed here`);
+    }
+</script>

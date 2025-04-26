@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Car Showroom</title>
+
+   <link rel="stylesheet" href="chat.css">
+  
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo">
+        DriveChat
+      </div>
+      <div class="car-categories">
+        <button class="category-button" data-message="Tell me about sedans">Sedans</button>
+        <button class="category-button" data-message="Tell me about SUVs">SUVs & Crossovers</button>
+        <button class="category-button" data-message="Tell me about electric vehicles">Electric Vehicles</button>
+        <button class="category-button" data-message="What are the financing options?">Financing Options</button>
+      </div>
+      <div class="quick-questions">
+        <h3>Common Questions</h3>
+        <button class="question-button" data-message="How can I test drive a car?">How can I test drive a car?</button>
+        <button class="question-button" data-message="Tell me about warranty">What warranty is offered?</button>
+        <button class="question-button" data-message="How does trade-in work?">How does trade-in work?</button>
+        <button class="question-button" data-message="How is delivery handled?">How is delivery handled?</button>
+        <button class="question-button" data-message="Can I customize my car?">Can I customize my car?</button>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="header">
+        <h1>Virtual Car Showroom Assistant</h1>
+        <div class="status">
+          <div class="status-indicator"></div>
+          <span>Online</span>
+        </div>
+      </div>
+      <div class="chat-container" id="chat-container">
+        <!-- Messages will be added here dynamically -->
+      </div>
+      <div class="input-area">
+        <input type="text" class="message-input" id="message-input" placeholder="Type your question here..." aria-label="Message input">
+        <button class="send-button" id="send-button">Send</button>
+      </div>
+    </div>
+  </div>
+  <button onclick="returnFromChat()">Return to Main</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        let roomId = localStorage.getItem('roomId') || '';
+
+        // Send return signal to others
+        window.returnFromChat = function () {
+            if (roomId) {
+                socket.emit('chatbot-closed', { roomId });
+            }
+            window.location.href = 'index.html';
+        };
+
+        socket.on('chatbot-closed', () => {
+            if (!window.location.href.includes('index.html')) {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Optional: set roomId from previous page
+        socket.emit('join-room', roomId);
+    </script>
+
+  <script src="chat.js"></script>
+</body>
+</html>

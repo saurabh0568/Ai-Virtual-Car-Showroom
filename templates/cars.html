@@ -6,13 +6,129 @@
     <title>Premium Cars - Luxury Vehicle Collection</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="cars.css">
+    <style>
+        .gif-hero-section {
+            display: flex;
+            min-height: 550px;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .gif-container {
+            flex: 1.5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .welcome-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem 4rem;
+            background-color: white;
+            color: #333;
+        }
+        
+        .welcome-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #222;
+        }
+        
+        .welcome-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .welcome-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: #333;
+            border: 2px solid #3498db;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .wishlist-btn {
+            margin-top: 10px;
+            text-align: right;
+        }
+        .wishlist-icon:hover i {
+            color: #c1121f;
+        }
+        .wishlist-icon {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .wishlist-icon i.fas {
+            color: #e63946; /* Red for active */
+        }
+
+
+    </style>
 </head>
 <body>
     <header>
         <div class="navbar">
             <a href="#" class="logo">
                 <i class="fas fa-car-alt"></i>
-                Premium Cars
+                S2 CarHub
             </a>
             <nav>
                 <ul>
@@ -26,14 +142,19 @@
             </nav>
         </div>
     </header>
-    
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Experience Luxury Driving</h1>
-            <p>Discover our exclusive collection of premium vehicles crafted for performance and elegance</p>
-            <div class="hero-buttons">
-                <a href="#" class="btn btn-primary"><i class="fas fa-car"></i> Explore Our Collection</a>
-                <a href="#" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> Book Test Drive</a>
+
+    <section class="gif-hero-section">
+        <div class="gif-container">
+            <!-- Using placeholder for GIF since we can't use external images -->
+            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/1bb8877824701.562a5843c9931.gif" alt="Luxury car in motion">
+        </div>
+        <div class="welcome-content">
+            <h1>Welcome to S2 CarHub</h1>
+            <p>Here luxury meets performance. Our premium collection represents the highest standards of engineering innovation and elegant design.</p>
+            <p>Each vehicle in our showroom has been selected for its exceptional quality, cutting-edge technology, and unparalleled driving experience.</p>
+            <div class="welcome-buttons">
+                <a href="Dealers.html" class="btn btn-primary"><i class="fas fa-car-side"></i> Test Drive Now</a>
+                <a href="#" class="btn btn-outline"><i class="far fa-calendar-check"></i> Schedule Consultation</a>
             </div>
         </div>
     </section>
@@ -42,40 +163,40 @@
         <div class="container-fluid">
             <h2 class="section-title">Our Services</h2>
             <div class="feature-icons-container">
-                <div class="feature-icon-card">
+                <a href="compare.html" class="feature-icon-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-exchange-alt"></i>
                     </div>
                     <span>Compare Models</span>
-                </div>
-                <div class="feature-icon-card">
+                </a>
+                <a href="public/index.html" class="feature-icon-card">
                     <div class="icon-wrapper">
                         <i class="far fa-calendar-alt"></i>
                     </div>
                     <span>Schedule Meeting</span>
-                </div>
-                <div class="feature-icon-card">
+                </a>
+                <a href="wishlist.html" class="feature-icon-card">
                     <div class="icon-wrapper">
                         <i class="far fa-heart"></i>
                     </div>
-                    <span>Create Wishlist</span>
-                </div>
-                <div class="feature-icon-card">
+                    <span>Wishlist</span>
+                </a>
+                <a href="../custom.html" class="feature-icon-card">
                     <div class="icon-wrapper">
-                        <i class="far fa-star"></i>
+                        <i class="fas fa-car"></i>
                     </div>
-                    <span>Save Favorites</span>
-                </div>
-                <div class="feature-icon-card">
+                    <span>Car Customization</span>
+                </a>
+                <a href="../recognistion1.html" class="feature-icon-card">
                     <div class="icon-wrapper">
                         <i class="far fa-id-card"></i>
                     </div>
-                    <span>Vehicle History</span>
-                </div>
+                    <span>Car Recognize</span>
+                </a>
             </div>
         </div>
     </section>
-
+    
     <div class="container">
         <aside>
             <div class="search-box">
@@ -84,51 +205,76 @@
             </div>
             
             <h3>Filter Options</h3>
-            
-            <div class="filter-group">
-                <h4><i class="fas fa-car-side"></i> Vehicle Type</h4>
-                <div class="filter-options" id="type-filters">
-                    <!-- Will be populated dynamically -->
-                </div>
-            </div>
-            
+
             <div class="filter-group">
                 <h4><i class="fas fa-building"></i> Make</h4>
                 <div class="filter-options" id="make-filters">
-                    <!-- Will be populated dynamically -->
+                    <label><input type="checkbox" value="Audi"> Audi</label>
+                    <label><input type="checkbox" value="BMW"> BMW</label>
+                    <label><input type="checkbox" value="Chevrolet"> Chevrolet</label>
+                    <label><input type="checkbox" value="Ford"> Ford</label>
+                    <label><input type="checkbox" value="Honda"> Honda</label>
+                    <label><input type="checkbox" value="Hyundai"> Hyundai</label>
+                    <label><input type="checkbox" value="Mercedes-Benz"> Mercedes-Benz</label>
+                    <label><input type="checkbox" value="Nissan"> Nissan</label>
+                    <label><input type="checkbox" value="Toyota"> Toyota</label>
+                    <label><input type="checkbox" value="Volkswagen"> Volkswagen</label>
                 </div>
-            </div>
-            
-            <div class="filter-group">
+
                 <h4><i class="far fa-calendar"></i> Year</h4>
                 <div class="filter-options" id="year-filters">
-                    <label class="filter-option">
-                        <input type="checkbox" value="2010-2015"> 2010 - 2015
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="2016-2020"> 2016 - 2020
-                    </label>
+                    <label><input type="checkbox" value="2020"> 2018</label>
+                    <label><input type="checkbox" value="2021"> 2019</label>
+                    <label><input type="checkbox" value="2022"> 2020</label>
+                    <label><input type="checkbox" value="2023"> 2021</label>
+                    <label><input type="checkbox" value="2024"> 2022</label>
                 </div>
-            </div>
-            
-            <div class="filter-group">
+
+                <h4><i class="fas fa-gas-pump"></i> Fuel Type</h4>
+                <div class="filter-options" id="fuel-filters">
+                    <label><input type="checkbox" value="Petrol"> Petrol</label>
+                    <label><input type="checkbox" value="Diesel"> Diesel</label>
+                    <label><input type="checkbox" value="Electric"> Electric</label>
+                    <label><input type="checkbox" value="Hybrid"> Hybrid</label>
+                    <label><input type="checkbox" value="CNG"> CNG</label>
+                </div>
+
                 <h4><i class="fas fa-dollar-sign"></i> Price Range</h4>
                 <div class="filter-options" id="price-filters">
-                    <label class="filter-option">
-                        <input type="checkbox" value="0-30000"> Under $30,000
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="30000-50000"> $30,000 - $50,000
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="50000-100000"> $50,000 - $100,000
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="100000-"> $100,000+
-                    </label>
+                    <label><input type="checkbox" value="0-500000"> Under ₹10L</label>
+                    <label><input type="checkbox" value="500000-1000000"> ₹10L - ₹20L</label>
+                    <label><input type="checkbox" value="1000000-2000000"> ₹20L - ₹35L</label>
+                    <label><input type="checkbox" value="2000000-5000000"> ₹35L - ₹50L</label>
+                    <label><input type="checkbox" value="5000000-"> Above ₹50L</label>
+                </div>
+
+                <h4><i class="fas fa-chair"></i> Seats</h4>
+                <div class="filter-options" id="seat-filters">
+                    <label><input type="checkbox" value="2"> 2</label>
+                    <label><input type="checkbox" value="4"> 4</label>
+                    <label><input type="checkbox" value="5"> 5</label>
+                    <label><input type="checkbox" value="6"> 6</label>
+                    <label><input type="checkbox" value="7"> 7</label>
+                    <label><input type="checkbox" value="8"> 8</label>
+                </div>
+
+                <h4><i class="fas fa-car-side"></i> Car Type</h4>
+                <div class="filter-options" id="type-filters">
+                    <label><input type="checkbox" value="Sedan"> Sedan</label>
+                    <label><input type="checkbox" value="SUV"> SUV</label>
+                    <label><input type="checkbox" value="Hatchback"> Hatchback</label>
+                    <label><input type="checkbox" value="Coupe"> Coupe</label>
+                    <label><input type="checkbox" value="Convertible"> Convertible</label>
+                </div>
+
+                <h4><i class="fas fa-cogs"></i> Transmission</h4>
+                <div class="filter-options" id="transmission-filters">
+                    <label><input type="checkbox" value="Automatic"> Automatic</label>
+                    <label><input type="checkbox" value="Manual"> Manual</label>
+                    <label><input type="checkbox" value="Semi-Automatic"> Semi-Automatic</label>
                 </div>
             </div>
-            
+
             <div class="filter-button-group">
                 <button id="apply-filters" class="btn btn-primary"><i class="fas fa-filter"></i> Apply Filters</button>
                 <button id="clear-filters" class="btn btn-outline"><i class="fas fa-times"></i> Clear</button>
@@ -160,7 +306,7 @@
     </section>
 
     <div class="chatbot">
-        <a href="chat.html">
+        <a href="../chatbot_final.html">
         <i class="fas fa-comments"></i>
         </a>
     </div>
@@ -233,7 +379,499 @@
             <p>&copy; 2025 Premium Cars. All Rights Reserved.</p>
         </div>
     </footer>
+    <script>
+        // Global variables
+        let allCars = [];
+        let filteredCars = [];
+        let selectedCars = [];
 
-    <script src="cars.js"</script>
+        // Define constants for all filter options
+        const makes = ["Audi", "BMW", "Chevrolet", "Ford", "Honda", "Hyundai", "Mercedes-Benz", "Nissan", "Toyota", "Volkswagen"];
+        const years = ["2018", "2019", "2020", "2021", "2022"]; // Fixed year values to match your HTML
+        const fuelTypes = ["Petrol", "Diesel", "Electric", "Hybrid", "CNG"];
+        const carTypes = ["Sedan", "SUV", "Hatchback", "Coupe", "Convertible"];
+        const transmissionTypes = ["Automatic", "Manual", "Semi-Automatic"];
+        const seatOptions = ["2", "4", "5", "6", "7", "8"];
+        const priceRanges = [
+            {value: "0-1000000", label: "Under ₹10L"},
+            {value: "1000000-2000000", label: "₹10L - ₹20L"},
+            {value: "2000000-3500000", label: "₹20L - ₹35L"},
+            {value: "3500000-5000000", label: "₹35L - ₹50L"},
+            {value: "5000000-", label: "Above ₹50L"}
+        ];
+
+        // Helper function to safely access nested properties regardless of case
+        function getProperty(obj, key) {
+            // Convert both the key and object keys to lowercase for comparison
+            const lowerKey = key.toLowerCase();
+            
+            // Direct match first
+            if (obj[key] !== undefined) return obj[key];
+            
+            // Try lowercase version
+            if (obj[lowerKey] !== undefined) return obj[lowerKey];
+            
+            // Try with underscores instead of spaces
+            const underscoreKey = lowerKey.replace(/\s+/g, '_');
+            if (obj[underscoreKey] !== undefined) return obj[underscoreKey];
+            
+            // Try all keys in lowercase for case-insensitive match
+            for (const objKey in obj) {
+                if (objKey.toLowerCase() === lowerKey || 
+                    objKey.toLowerCase() === underscoreKey) {
+                    return obj[objKey];
+                }
+            }
+            
+            return undefined;
+        }
+
+        // Fetch car data
+        async function fetchCars() {
+            try {
+                // Use the actual API endpoint
+                const response = await fetch('http://127.0.0.1:5000/api/cars');
+                const data = await response.json();
+
+                if (!data.cars || data.cars.length === 0) {
+                    document.getElementById('car-groups').innerHTML = '<div class="error-message">No car data found.</div>';
+                    return;
+                }
+
+                allCars = data.cars;
+                filteredCars = [...allCars];
+
+                document.getElementById('car-count').textContent = allCars.length;
+                document.getElementById('brand-count').textContent = [...new Set(allCars.map(car => 
+                    getProperty(car, 'Make')?.toLowerCase() || ''
+                ))].filter(Boolean).length;
+
+                populateFilters();
+                displayCars(filteredCars);
+            } catch (err) {
+                console.error('Fetch error:', err);
+                document.getElementById('car-groups').innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Failed to load car data. Please try again later.</div>';
+            }
+        }
+
+        // Populate filters
+        function populateFilters() {
+            // Define all filter elements
+            const filterContainers = {
+                make: document.getElementById('make-filters'),
+                year: document.getElementById('year-filters'),
+                fuel: document.getElementById('fuel-filters'),
+                price: document.getElementById('price-filters'),
+                seats: document.getElementById('seat-filters'),
+                type: document.getElementById('type-filters'),
+                transmission: document.getElementById('transmission-filters')
+            };
+
+            // Helper function to create filter checkboxes
+            const createFilterFromConstant = (container, options, countFunction) => {
+                if (!container) return;
+                container.innerHTML = ''; // Clear existing filters
+                
+                options.forEach(option => {
+                    let value, label, count;
+                    if (typeof option === 'object') {
+                        value = option.value;
+                        label = option.label;
+                        count = countFunction(value);
+                    } else {
+                        value = option;
+                        label = option;
+                        count = countFunction(value);
+                    }
+                    
+                    const el = document.createElement('label');
+                    el.innerHTML = `<input type="checkbox" value="${value}"> ${label}`;
+                    container.appendChild(el);
+                });
+            };
+
+            // Populate make filter
+            createFilterFromConstant(filterContainers.make, makes, 
+                make => allCars.filter(car => 
+                    (getProperty(car, 'Make') || '').toLowerCase() === make.toLowerCase()
+                ).length
+            );
+
+            // Populate year filter
+            createFilterFromConstant(filterContainers.year, years, 
+                year => allCars.filter(car => 
+                    String(getProperty(car, 'Year')) === year
+                ).length
+            );
+            
+            // Populate fuel filter
+            createFilterFromConstant(filterContainers.fuel, fuelTypes, 
+                fuel => allCars.filter(car => 
+                    (getProperty(car, 'Fuel Type') || '').toLowerCase() === fuel.toLowerCase()
+                ).length
+            );
+
+            // Populate car type filter
+            createFilterFromConstant(filterContainers.type, carTypes, 
+                type => allCars.filter(car => 
+                    (getProperty(car, 'Car Type') || '').toLowerCase() === type.toLowerCase()
+                ).length
+            );
+
+            // Populate transmission filter
+            createFilterFromConstant(filterContainers.transmission, transmissionTypes, 
+                trans => allCars.filter(car => 
+                    (getProperty(car, 'Transmission') || '').toLowerCase() === trans.toLowerCase()
+                ).length
+            );
+
+            // Populate seats filter
+            createFilterFromConstant(filterContainers.seats, seatOptions, 
+                seats => allCars.filter(car => 
+                    String(getProperty(car, 'Seats')) === seats
+                ).length
+            );
+
+            // Populate price filter
+            createFilterFromConstant(filterContainers.price, priceRanges, 
+                range => {
+                    const [min, max] = range.split('-').map(Number);
+                    return allCars.filter(car => {
+                        const price = parseFloat(getProperty(car, 'Price_IR') || 0);
+                        return price >= min && (!max || price <= max);
+                    }).length;
+                }
+            );
+
+            // Add event listeners to all filter checkboxes
+            document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', applyFilters);
+            });
+        }
+
+
+        // Display cars
+        function displayCars(cars) {
+            const container = document.getElementById('car-groups');
+            container.innerHTML = '';
+
+            if (cars.length === 0) {
+                container.innerHTML = '<div class="error-message"><i class="fas fa-search"></i> No cars match your filter criteria.</div>';
+                return;
+            }
+
+            const cardGroup = document.createElement('div');
+            cardGroup.className = 'card-container';
+
+            cars.forEach((car, index) => {
+                const card = document.createElement('div');
+                card.className = 'car-card';
+                
+                // Format price display with commas
+                const priceValue = getProperty(car, 'Price_IR') || 0;
+                const formattedPrice = priceValue ? 
+                    new Intl.NumberFormat('en-IN', { 
+                        style: 'currency', 
+                        currency: 'INR',
+                        maximumFractionDigits: 0
+                    }).format(priceValue) : '₹N/A';
+
+                const fixedImageUrl = '/Car/3.jpg'; // Path to a single image
+
+                card.innerHTML = `
+                    <div class="car-image" onclick="viewDetails('${index}')">
+                        <img src="${fixedImageUrl}" 
+                            onerror="this.onerror=null; this.src='/fallback.jpg';" 
+                            alt="${getProperty(car, 'Make') || ''} ${getProperty(car, 'Model') || 'Unknown Model'}">
+                        <div class="image-overlay">
+                            <button class="overlay-btn"><i class="far fa-eye"></i> Quick View</button>
+                        </div>
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">${getProperty(car, 'Make') || ''} ${getProperty(car, 'Model') || 'Unknown Model'} 
+                            <span class="car-year">${getProperty(car, 'Year') || 'N/A'}</span>
+                        </h3>
+                        <div class="car-specs">
+                            ${getProperty(car, 'Car Type') ? `<span class="car-spec"><i class="fas fa-car"></i> ${getProperty(car, 'Car Type')}</span>` : ''}
+                            ${getProperty(car, 'Fuel Type') ? `<span class="car-spec"><i class="fas fa-gas-pump"></i> ${getProperty(car, 'Fuel Type')}</span>` : ''}
+                            ${getProperty(car, 'Transmission') ? `<span class="car-spec"><i class="fas fa-cog"></i> ${getProperty(car, 'Transmission')}</span>` : ''}
+                            ${getProperty(car, 'Seats') ? `<span class="car-spec"><i class="fas fa-chair"></i> ${getProperty(car, 'Seats')} Seats</span>` : ''}
+                        </div>
+                        <div class="car-price">${formattedPrice}</div>
+                        <div class="wishlist-btn">
+                            <button onclick='toggleWishlist(this, ${JSON.stringify(car)})'>
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <label>
+                        <input type="checkbox" class="compare-checkbox" data-car-id="${index}"> Compare
+                    </label>
+                `;
+
+                cardGroup.appendChild(card);
+            });
+
+            container.appendChild(cardGroup);
+
+            // Add event listeners for the compare checkboxes
+            document.querySelectorAll('.compare-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const carId = this.getAttribute('data-car-id');
+                    markCarForComparison(carId); // Store the car for comparison
+                });
+            });
+        }
+
+
+
+        // Apply filters
+        function applyFilters() {
+            const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
+
+            // Helper function to get checked values from a filter group
+            const getCheckedValues = id => {
+                const element = document.getElementById(id);
+                return element ? [...element.querySelectorAll('input:checked')].map(el => el.value) : [];
+            };
+
+            // Get all selected filter values
+            const selectedMakes = getCheckedValues('make-filters');
+            const selectedYears = getCheckedValues('year-filters');
+            const selectedFuels = getCheckedValues('fuel-filters');
+            const selectedPrices = getCheckedValues('price-filters');
+            const selectedSeats = getCheckedValues('seat-filters');
+            const selectedTypes = getCheckedValues('type-filters');
+            const selectedTransmissions = getCheckedValues('transmission-filters');
+
+            // Apply filters to all cars
+            filteredCars = allCars.filter(car => {
+                // Search filter
+                if (searchTerm) {
+                    const searchMatch = Object.values(car).some(val => 
+                        val && String(val).toLowerCase().includes(searchTerm)
+                    );
+                    if (!searchMatch) return false;
+                }
+
+                // Make filter
+                if (selectedMakes.length && !selectedMakes.some(make => 
+                    (getProperty(car, 'Make') || '').toLowerCase() === make.toLowerCase()
+                )) {
+                    return false;
+                }
+
+                // Year filter
+                if (selectedYears.length && !selectedYears.includes(String(getProperty(car, 'Year')))) {
+                    return false;
+                }
+
+                // Fuel filter
+                if (selectedFuels.length && !selectedFuels.some(fuel => 
+                    (getProperty(car, 'Fuel Type') || '').toLowerCase() === fuel.toLowerCase()
+                )) {
+                    return false;
+                }
+
+                // Seats filter
+                if (selectedSeats.length && !selectedSeats.includes(String(getProperty(car, 'Seats')))) {
+                    return false;
+                }
+
+                // Type filter
+                if (selectedTypes.length && !selectedTypes.some(type => 
+                    (getProperty(car, 'Car Type') || '').toLowerCase() === type.toLowerCase()
+                )) {
+                    return false;
+                }
+
+                // Transmission filter
+                if (selectedTransmissions.length && !selectedTransmissions.some(trans => 
+                    (getProperty(car, 'Transmission') || '').toLowerCase() === trans.toLowerCase()
+                )) {
+                    return false;
+                }
+
+                // Price range filter
+                if (selectedPrices.length) {
+                    const price = parseFloat(getProperty(car, 'Price_IR') || 0);
+                    const inPriceRange = selectedPrices.some(range => {
+                        const [min, max] = range.split('-').map(Number);
+                        return price >= min && (!max || price <= max);
+                    });
+                    if (!inPriceRange) return false;
+                }
+
+                // All filters passed
+                return true;
+            });
+
+            // Update UI with filtered cars
+            displayCars(filteredCars);
+            
+            // Update result count
+            const countElement = document.getElementById('car-count');
+            if (countElement) countElement.textContent = filteredCars.length;
+        }
+
+        // Clear all filters
+        function clearFilters() {
+            document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(el => el.checked = false);
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.value = '';
+            filteredCars = [...allCars];
+            displayCars(filteredCars);
+            const countElement = document.getElementById('car-count');
+            if (countElement) countElement.textContent = allCars.length;
+        }
+
+        function viewDetails(carIndex) {
+            // Store the car data in localStorage
+            const car = filteredCars[carIndex];
+            if (car) {
+                localStorage.setItem('selectedCar', JSON.stringify(car));
+                localStorage.setItem('allCars', JSON.stringify(filteredCars));
+                // Redirect to car details page
+                window.location.href = 'car_details.html';
+            } else {
+                alert('Car not found.');
+            }
+        }
+        function toggleWishlist(button, index) {
+            const icon = button.querySelector('i');
+            const car = filteredCars[index];
+            if (!car || !icon) return;
+
+            fetch('http://127.0.0.1:5000/wishlist/toggle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: 1,
+                    make: getProperty(car, 'Make'),
+                    model: getProperty(car, 'Model'),
+                    fuel_type: getProperty(car, 'Fuel Type')
+                })
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === "added") {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = '#e63946';
+                } else if (result.status === "removed") {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '';
+                }
+            });
+        }
+
+        async function toggleWishlist(button, car) {
+            const icon = button.querySelector('i');
+
+            const res = await fetch('http://127.0.0.1:5000/wishlist/toggle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ car, user_id: 1 })  // hardcoded user_id for now
+            });
+
+            const result = await res.json();
+
+            if (result.status === "added") {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                icon.style.color = '#e63946';
+            } else if (result.status === "removed") {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                icon.style.color = '';
+            }
+        }
+        
+        function markCarForComparison(car) {
+            let selectedCars = JSON.parse(localStorage.getItem('selectedCars')) || [];
+
+            // Check if the car already exists in the comparison list
+            const carIndex = selectedCars.findIndex(c => c.id === car.id);
+            if (carIndex === -1) {
+                selectedCars.push(car);  // Store the complete car object
+                alert(`${car.Make} ${car.Model} marked for comparison!`);
+            } else {
+                selectedCars.splice(carIndex, 1);  // Remove car from comparison list
+                alert(`${car.Make} ${car.Model} removed from comparison.`);
+            }
+
+            // Save the updated list to localStorage
+            localStorage.setItem('selectedCars', JSON.stringify(selectedCars));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Attach event listeners to the select car buttons
+            document.querySelectorAll('.select-car').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const carCard = event.target.closest('.car-card');
+                    const car = {
+                        make: carCard.dataset.make,
+                        model: carCard.dataset.model,
+                        fuel_type: carCard.dataset.fuel_type
+                    };
+                    
+                    // Toggle car selection
+                    if (!selectedCars.some(selectedCar => 
+                        selectedCar.make === car.make && selectedCar.model === car.model && selectedCar.fuel_type === car.fuel_type)) {
+                        selectedCars.push(car);
+                    } else {
+                        selectedCars = selectedCars.filter(c => !(c.make === car.make && c.model === car.model && c.fuel_type === car.fuel_type));
+                    }
+
+                    console.log(selectedCars); // For debugging, remove in production
+                });
+            });
+
+            // Handle the compare button click
+            document.getElementById('compare').addEventListener('click', () => {
+                if (selectedCars.length < 2) {
+                    alert('Please select at least two cars to compare!');
+                    return;
+                }
+
+                // Store selected cars in sessionStorage
+                sessionStorage.setItem('selectedCars', JSON.stringify(selectedCars));
+
+                // Redirect to the compare page
+                window.location.href = 'compare-models.html';
+            });
+        });
+
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCars();
+            
+            // Add event listeners
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.addEventListener('input', applyFilters);
+            
+            const applyButton = document.getElementById('apply-filters');
+            if (applyButton) applyButton.addEventListener('click', applyFilters);
+            
+            const clearButton = document.getElementById('clear-filters');
+            if (clearButton) clearButton.addEventListener('click', clearFilters);   
+        });
+        // Global listener for compare button
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('compare').addEventListener('click', () => {
+                if (selectedCars.length < 2) {
+                    alert('Please select at least two cars to compare!');
+                    return;
+                }
+
+                // Save to sessionStorage and redirect
+                sessionStorage.setItem('selectedCars', JSON.stringify(selectedCars));
+                window.location.href = 'compare-models.html';
+            });
+        });
+
+    </script> 
 </body>
 </html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Car Comparison</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --tertiary: #e74c3c;
+            --background: #f8f9fa;
+            --text: #2c3e50;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .car-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .car-header {
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .bmw-header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+        }
+        
+        .hyundai-header {
+            background: linear-gradient(135deg, #2c3e50, #2ecc71);
+        }
+        
+        .honda-header {
+            background: linear-gradient(135deg, #2c3e50, #e74c3c);
+        }
+
+        .car-name {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .car-details {
+            padding: 20px;
+        }
+
+        .car-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .car-detail-label {
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+
+        .car-detail-value {
+            font-weight: 500;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .chart-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .feature-comparison {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .feature-row {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .feature-label {
+            flex: 0 0 150px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .feature-bars {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-meter {
+            height: 25px;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .feature-fill {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 5px;
+        }
+
+        .feature-value {
+            position: relative;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .bmw-fill {
+            background-color: var(--primary);
+        }
+
+        .hyundai-fill {
+            background-color: var(--secondary);
+        }
+
+        .honda-fill {
+            background-color: var(--tertiary);
+        }
+
+        .car-label {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .car-label-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .bmw-color {
+            background-color: var(--primary);
+        }
+
+        .hyundai-color {
+            background-color: var(--secondary);
+        }
+
+        .honda-color {
+            background-color: var(--tertiary);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .evaluation {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .evaluation h2 {
+            margin-top: 0;
+            color: var(--text);
+        }
+
+        .best-car {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 20px 0;
+            color: #2ecc71;
+        }
+
+        .score-explanation {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .feature-row {
+                flex-direction: column;
+            }
+            
+            .feature-label {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Luxury vs Compact vs Economy</h1>
+            <p class="subtitle">Comparing the BMW 7 Series, Hyundai Kona, and Honda Civic</p>
+        </header>
+
+        <div class="legend">
+            <div class="car-label">
+                <div class="car-label-color bmw-color"></div>
+                <span>BMW 7 Series</span>
+            </div>
+            <div class="car-label">
+                <div class="car-label-color hyundai-color"></div>
+                <span>Hyundai Kona</span>
+            </div>
+            <div class="car-label">
+                <div class="car-label-color honda-color"></div>
+                <span>Honda Civic</span>
+            </div>
+        </div>
+
+        <div class="cars-grid">
+            <div class="car-card">
+                <div class="car-header bmw-header">
+                    <h2 class="car-name">BMW 7 Series</h2>
+                </div>
+                <div class="car-details">
+                    <div class="car-detail">
+                        <span class="car-detail-label">Price</span>
+                        <span class="car-detail-value">₹3,797,359</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Fuel Type</span>
+                        <span class="car-detail-value">Petrol</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Engine Size</span>
+                        <span class="car-detail-value">3.0L</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Power</span>
+                        <span class="car-detail-value">335 hp</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Torque</span>
+                        <span class="car-detail-value">450 Nm</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Mileage</span>
+                        <span class="car-detail-value">25 mpg</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <div class="car-header hyundai-header">
+                    <h2 class="car-name">Hyundai Kona</h2>
+                </div>
+                <div class="car-details">
+                    <div class="car-detail">
+                        <span class="car-detail-label">Price</span>
+                        <span class="car-detail-value">₹2,461,345</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Fuel Type</span>
+                        <span class="car-detail-value">Electric</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Engine Size</span>
+                        <span class="car-detail-value">1.6L</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Power</span>
+                        <span class="car-detail-value">201 hp</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Torque</span>
+                        <span class="car-detail-value">395 Nm</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Mileage</span>
+                        <span class="car-detail-value">120 MPGe</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <div class="car-header honda-header">
+                    <h2 class="car-name">Honda Civic</h2>
+                </div>
+                <div class="car-details">
+                    <div class="car-detail">
+                        <span class="car-detail-label">Price</span>
+                        <span class="car-detail-value">₹5,952,043</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Fuel Type</span>
+                        <span class="car-detail-value">Petrol</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Engine Size</span>
+                        <span class="car-detail-value">2.0L</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Power</span>
+                        <span class="car-detail-value">158 hp</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Torque</span>
+                        <span class="car-detail-value">300 Nm</span>
+                    </div>
+                    <div class="car-detail">
+                        <span class="car-detail-label">Mileage</span>
+                        <span class="car-detail-value">32 mpg</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-comparison">
+            <h2 style="margin-top: 0;">Feature Comparison</h2>
+            
+            <div class="feature-row">
+                <div class="feature-label">Price</div>
+                <div class="feature-bars">
+                    <div class="feature-meter">
+                        <div class="feature-fill bmw-fill" style="width: 64%;"></div>
+                        <div class="feature-value">₹3.8M</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill hyundai-fill" style="width: 41%;"></div>
+                        <div class="feature-value">₹2.5M</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill honda-fill" style="width: 100%;"></div>
+                        <div class="feature-value">₹6.0M</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-row">
+                <div class="feature-label">Engine Size</div>
+                <div class="feature-bars">
+                    <div class="feature-meter">
+                        <div class="feature-fill bmw-fill" style="width: 100%;"></div>
+                        <div class="feature-value">3.0L</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill hyundai-fill" style="width: 53%;"></div>
+                        <div class="feature-value">1.6L</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill honda-fill" style="width: 67%;"></div>
+                        <div class="feature-value">2.0L</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-row">
+                <div class="feature-label">Power</div>
+                <div class="feature-bars">
+                    <div class="feature-meter">
+                        <div class="feature-fill bmw-fill" style="width: 100%;"></div>
+                        <div class="feature-value">335 hp</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill hyundai-fill" style="width: 60%;"></div>
+                        <div class="feature-value">201 hp</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill honda-fill" style="width: 47%;"></div>
+                        <div class="feature-value">158 hp</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-row">
+                <div class="feature-label">Torque</div>
+                <div class="feature-bars">
+                    <div class="feature-meter">
+                        <div class="feature-fill bmw-fill" style="width: 100%;"></div>
+                        <div class="feature-value">450 Nm</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill hyundai-fill" style="width: 88%;"></div>
+                        <div class="feature-value">395 Nm</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill honda-fill" style="width: 67%;"></div>
+                        <div class="feature-value">300 Nm</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-row">
+                <div class="feature-label">Mileage</div>
+                <div class="feature-bars">
+                    <div class="feature-meter">
+                        <div class="feature-fill bmw-fill" style="width: 21%;"></div>
+                        <div class="feature-value">25 mpg</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill hyundai-fill" style="width: 100%;"></div>
+                        <div class="feature-value">120 MPGe</div>
+                    </div>
+                    <div class="feature-meter">
+                        <div class="feature-fill honda-fill" style="width: 27%;"></div>
+                        <div class="feature-value">32 mpg</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3 style="text-align: center; margin-top: 0;">Power vs Price</h3>
+                <canvas id="powerPriceChart" width="400" height="300"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3 style="text-align: center; margin-top: 0;">Mileage Comparison</h3>
+                <canvas id="mileageChart" width="400" height="300"></canvas>
+            </div>
+        </div>
+
+        <div class="evaluation">
+            <h2>Car Evaluation</h2>
+            <div id="best-car" class="best-car"></div>
+            <div class="score-explanation">
+                <p>This evaluation considers price, mileage, engine size, power, and torque with different weights to determine the best value proposition.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Car data
+        const cars = [
+            { name: 'BMW 7 Series', price: 3797358.73, mileage: 25, engineSize: 3.0, power: 335, torque: 450 },
+            { name: 'Hyundai Kona', price: 2461344.53, mileage: 120, engineSize: 1.6, power: 201, torque: 395 },
+            { name: 'Honda Civic', price: 5952042.83, mileage: 32, engineSize: 2.0, power: 158, torque: 300 }
+        ];
+
+        // Colors for charts
+        const carColors = {
+            'BMW 7 Series': 'rgba(52, 152, 219, 0.7)',
+            'Hyundai Kona': 'rgba(46, 204, 113, 0.7)',
+            'Honda Civic': 'rgba(231, 76, 60, 0.7)'
+        };
+
+        // Calculate best car
+        function evaluateBestCar() {
+            // Weights for different criteria
+            const weights = {
+                price: 0.2,     // Lower is better
+                mileage: 0.3,   // Higher is better
+                engineSize: 0.2, // Higher is better
+                power: 0.2,     // Higher is better
+                torque: 0.1     // Higher is better
+            };
+
+            // Find min and max values
+            const minPrice = Math.min(...cars.map(car => car.price));
+            const maxPrice = Math.max(...cars.map(car => car.price));
+            const maxMileage = Math.max(...cars.map(car => car.mileage));
+            const maxEngineSize = Math.max(...cars.map(car => car.engineSize));
+            const maxPower = Math.max(...cars.map(car => car.power));
+            const maxTorque = Math.max(...cars.map(car => car.torque));
+
+            // Calculate scores
+            cars.forEach(car => {
+                car.score = 0;
+                car.score += weights.price * (1 - (car.price - minPrice) / (maxPrice - minPrice));
+                car.score += weights.mileage * (car.mileage / maxMileage);
+                car.score += weights.engineSize * (car.engineSize / maxEngineSize);
+                car.score += weights.power * (car.power / maxPower);
+                car.score += weights.torque * (car.torque / maxTorque);
+                car.scoreFormatted = (car.score * 100).toFixed(1) + '%';
+            });
+
+            // Find the best car
+            const bestCar = cars.reduce((prev, current) => (prev.score > current.score) ? prev : current);
+            
+            // Display result
+            document.getElementById('best-car').textContent = `The best car based on our analysis is the ${bestCar.name} with an overall score of ${bestCar.scoreFormatted}`;
+        }
+
+        // Create charts
+        function createCharts() {
+            // Power vs Price chart
+            const powerPriceCtx = document.getElementById('powerPriceChart').getContext('2d');
+            new Chart(powerPriceCtx, {
+                type: 'bubble',
+                data: {
+                    datasets: cars.map(car => ({
+                        label: car.name,
+                        data: [{
+                            x: car.price / 1000000, // Price in millions
+                            y: car.power,
+                            r: car.engineSize * 8 // Bubble size based on engine size
+                        }],
+                        backgroundColor: carColors[car.name]
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const car = cars[context.datasetIndex];
+                                    return [
+                                        car.name,
+                                        `Price: $₹{(car.price / 1000000).toFixed(1)}M`,
+                                        `Power: ${car.power} hp`,
+                                        `Engine: ${car.engineSize}L`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Price ($ millions)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Power (hp)'
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Mileage chart
+            const mileageCtx = document.getElementById('mileageChart').getContext('2d');
+            new Chart(mileageCtx, {
+                type: 'bar',
+                data: {
+                    labels: cars.map(car => car.name),
+                    datasets: [{
+                        label: 'Mileage (mpg/MPGe)',
+                        data: cars.map(car => car.mileage),
+                        backgroundColor: Object.values(carColors),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'MPG / MPGe'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize the page
+        window.onload = function() {
+            evaluateBestCar();
+            createCharts();
+        };
+    </script>
+</body>
+</html>

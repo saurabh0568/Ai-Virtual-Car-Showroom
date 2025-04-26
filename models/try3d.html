@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Car View</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+    }
+    #container {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
+  <!-- GLTFLoader -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.148.0/examples/js/loaders/GLTFLoader.js"></script>
+  <!-- OrbitControls -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.148.0/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+    let scene, camera, renderer, controls;
+
+    function init() {
+      scene = new THREE.Scene();
+
+      // Add grid and axes to make sure the scene is rendering
+      const gridHelper = new THREE.GridHelper(10, 10);
+      scene.add(gridHelper);
+
+      const axesHelper = new THREE.AxesHelper(5);
+      scene.add(axesHelper);
+
+      camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      camera.position.set(2, 2, 6);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.getElementById('container').appendChild(renderer.domElement);
+
+      // Light
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+      directionalLight.position.set(3, 10, 5);
+      scene.add(directionalLight);
+
+      // Orbit controls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+
+      // Load 3D model
+      const loader = new THREE.GLTFLoader();
+      loader.load(
+        'https://modelviewer.dev/shared-assets/models/Astronaut.glb', // replace with URL if needed
+        function (gltf) {
+          const model = gltf.scene;
+          model.scale.set(1.5, 1.5, 1.5);
+          model.position.set(0, 0, 0);
+          scene.add(model);
+          console.log("✅ Model loaded");
+        },
+        function (xhr) {
+          console.log("🔄 Loading:", (xhr.loaded / xhr.total * 100).toFixed(2) + "%");
+        },
+        function (error) {
+          console.error("❌ Failed to load model:", error);
+        }
+      );
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      animate();
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    init();
+  </script>
+</body>
+</html>

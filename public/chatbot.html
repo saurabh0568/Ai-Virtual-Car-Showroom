@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Enhanced Car Showroom Chatbot</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #e9ecef;
+            --accent-color: #28a745;
+            --text-color: #333;
+            --light-text: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-shadow: var(--box-shadow);
+        }
+
+        .sidebar {
+            width: 30%;
+            background-color: white;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: white;
+            border-left: 4px solid var(--primary-color);
+            align-self: flex-start;
+            box-shadow: var(--box-shadow);
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 15px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .message-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .send-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            margin-left: 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .send-button:hover {
+            background-color: #004494;
+        }
+
+        .car-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-button {
+            padding: 12px 15px;
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            text-align: left;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .category-button:hover {
+            background-color: #dde0e3;
+        }
+
+        .quick-questions {
+            flex: 1;
+        }
+
+        .quick-questions h3 {
+            margin-bottom: 15px;
+            color: var(--light-text);
+        }
+
+        .question-button {
+            padding: 10px 15px;
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .question-button:hover {
+            background-color: var(--secondary-color);
+            border-color: #bbb;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            padding: 12px 15px;
+            align-self: flex-start;
+            margin-bottom: 5px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background-color: var(--light-text);
+            border-radius: 50%;
+            margin: 0 2px;
+            display: inline-block;
+            animation: typing 1s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+
+        .config-panel {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+
+        .switch-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+                padding: 15px;
+            }
+            .main-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">S2 CarHub Assistant</div>
+            
+            <div class="config-panel">
+                <div class="switch-container">
+                    <span>Chatbot</span>
+                    <label class="switch">
+                        <input type="checkbox" id="ai-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div id="ai-status"></div>
+            </div>
+            
+            <div class="car-categories">
+                <button class="category-button" data-message="Tell me about your sedans">Sedans</button>
+                <button class="category-button" data-message="What SUVs do you have?">SUVs</button>
+                <button class="category-button" data-message="Show me electric vehicles">Electric Vehicles</button>
+                <button class="category-button" data-message="What are your financing options?">Financing Options</button>
+            </div>
+            
+            <div class="quick-questions">
+                <h3>Quick Questions</h3>
+                <button class="question-button" data-message="How do I schedule a test drive?">Schedule Test Drive</button>
+                <button class="question-button" data-message="What warranty do you offer?">Warranty Information</button>
+                <button class="question-button" data-message="Can I trade in my current car?">Trade-In Options</button>
+                <button class="question-button" data-message="Do you offer home delivery?">Delivery Options</button>
+                <button class="question-button" data-message="Compare electric and gas vehicles">EV vs Gas Comparison</button>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Car Showroom Assistant</h1>
+                <div class="status">
+                    <div class="status-indicator"></div>
+                    <span>Online</span>
+                </div>
+            </div>
+            
+            <div id="chat-container" class="chat-container">
+                <div class="message bot-message">
+                    Welcome to S2 CarHub! I'm your AI-powered assistant ready to help you explore our vehicle lineup and answer any questions. What can I help you with today?
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="message-input" class="message-input" placeholder="Type your message...">
+                <button id="send-button" class="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class CarShowroomChatbot {
+            constructor() {
+                // Your existing constructor code remains the same
+                this.carDatabase = {
+                    // All existing car data
+                };
+                
+                this.financingOptions = {
+                    // All existing financing options
+                };
+                
+                this.commonQuestions = {
+                    // All existing common questions
+                };
+            }
+            
+            // All your existing methods remain the same
+            processMessage(message) { /* ... */ }
+            containsAny(text, keywords) { /* ... */ }
+            getWelcomeMessage() { /* ... */ }
+            getCarTypeInfo(type) { /* ... */ }
+            getPricingInfo(message) { /* ... */ }
+            getFinancingInfo(message) { /* ... */ }
+            getComparisonInfo(message) { /* ... */ }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const chatContainer = document.getElementById("chat-container");
+            const messageInput = document.getElementById("message-input");
+            const sendButton = document.getElementById("send-button");
+            const aiToggle = document.getElementById("ai-toggle");
+            const aiStatus = document.getElementById("ai-status");
+            const usernameInput = document.getElementById("username-input");
+            const setUsernameBtn = document.getElementById("set-username-btn");
+            const activeUsersCount = document.getElementById("active-users-count");
+            
+            // Generate a random user ID
+            const userId = Math.random().toString(36).substring(2, 15);
+            let username = "User_" + userId.substring(0, 5);
+            usernameInput.value = username;
+            
+            // Initialize the chatbot
+            const chatbot = new CarShowroomChatbot();
+            
+            // Set up the WebSocket connection to Python backend
+            // Change the URL to match your backend server
+            const ws = new WebSocket("ws://localhost:8000/ws");
+            let websocketReady = false;
+            
+            ws.onopen = function() {
+                console.log("WebSocket connection established.");
+                websocketReady = true;
+                
+                // Send user information to the server
+                ws.send(JSON.stringify({
+                    type: "user_connected",
+                    userId: userId,
+                    username: username
+                }));
+            };
+            
+            ws.onerror = function() {
+                console.log("WebSocket connection error.");
+                aiToggle.checked = false;
+                aiStatus.textContent = "AI mode disabled: Could not connect to Python backend";
+                aiStatus.style.color = "#d9534f";
+            };
+            
+            ws.onclose = function() {
+                console.log("WebSocket connection closed.");
+                websocketReady = false;
+                if (aiToggle.checked) {
+                    aiToggle.checked = false;
+                    aiStatus.textContent = "AI mode disabled: Connection to Python backend lost";
+                    aiStatus.style.color = "#d9534f";
+                }
+            };
+            
+            ws.onmessage = function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+                    
+                    if (data.type === "chat_message") {
+                        // Handle regular chat message
+                        if (data.userId === userId) {
+                            // This is the user's own message (usually not needed since we already display it)
+                            // But you might want to update it if there's additional server processing
+                        } else {
+                            // This is a message from another user
+                            addOtherUserMessage(data.username, data.message);
+                        }
+                    } else if (data.type === "bot_response") {
+                        // Handle bot response
+                        addMessage(data.message, false);
+                    } else if (data.type === "user_count") {
+                        // Update active users count
+                        activeUsersCount.textContent = data.count;
+                    }
+                } catch (error) {
+                    // Fallback for plain text messages
+                    addMessage(event.data, false);
+                }
+                
+                removeTypingIndicator();
+            };
+            
+            function addMessage(text, isUser = false) {
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+                messageDiv.classList.add(isUser ? "user-message" : "bot-message");
+                messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            function addOtherUserMessage(otherUsername, text) {
+                const userInfo = document.createElement("div");
+                userInfo.classList.add("user-info");
+                userInfo.textContent = otherUsername;
+                
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+                messageDiv.classList.add("other-user-message");
+                messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+                
+                chatContainer.appendChild(userInfo);
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            function addTypingIndicator() {
+                const indicator = document.createElement("div");
+                indicator.classList.add("typing-indicator");
+                indicator.id = "typing-indicator";
+                indicator.innerHTML = '<span></span><span></span><span></span>';
+                chatContainer.appendChild(indicator);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            function removeTypingIndicator() {
+                const indicator = document.getElementById("typing-indicator");
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+            
+            async function handleUserMessage() {
+                const message = messageInput.value.trim();
+                if (message === "") return;
+                
+                // Add user message to chat
+                addMessage(message, true);
+                messageInput.value = "";
+                
+                // Show typing indicator
+                addTypingIndicator();
+                
+                // Check if we should use the AI or the static chatbot
+                if (aiToggle.checked && websocketReady) {
+                    // Send to WebSocket (Python backend)
+                    ws.send(JSON.stringify({
+                        type: "chat_message",
+                        userId: userId,
+                        username: username,
+                        message: message
+                    }));
+                } else {
+                    // Use the JavaScript chatbot
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        const response = chatbot.processMessage(message);
+                        
+                        // If the chatbot doesn't have a predefined answer, give a fallback
+                        if (response === null) {
+                            addMessage("I'm sorry, but I don't have an answer for that specific question. Please try asking about our vehicles, financing options, or use one of the quick questions on the sidebar.", false);
+                        } else {
+                            addMessage(response, false);
+                        }
+                    }, 800);
+                }
+            }
+            
+            // Set up event listeners
+            sendButton.addEventListener("click", handleUserMessage);
+            
+            messageInput.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    handleUserMessage();
+                }
+            });
+            
+            setUsernameBtn.addEventListener("click", function() {
+                const newUsername = usernameInput.value.trim();
+                if (newUsername) {
+                    username = newUsername;
+                    
+                    // Notify server about username change
+                    if (websocketReady) {
+                        ws.send(JSON.stringify({
+                            type: "username_change",
+                            userId: userId,
+                            username: username
+                        }));
+                    }
+                    
+                    alert("Username set to: " + username);
+                }
+            });
+            
+            aiToggle.addEventListener("change", function() {
+                if (this.checked) {
+                    if (websocketReady) {
+                        aiStatus.textContent = "AI mode is active: Using Gemini for responses";
+                        aiStatus.style.color = "inherit";
+                    } else {
+                        this.checked = false;
+                        aiStatus.textContent = "AI mode disabled: Could not connect to Python backend";
+                        aiStatus.style.color = "#d9534f";
+                    }
+                } else {
+                    aiStatus.textContent = "AI mode disabled: Using predefined responses only";
+                    aiStatus.style.color = "inherit";
+                }
+            });
+            
+            document.querySelectorAll(".category-button, .question-button").forEach(button => {
+                button.addEventListener("click", function() {
+                    messageInput.value = this.dataset.message;
+                    handleUserMessage();
+                });
+            });
+            
+            // Initial check for WebSocket status
+            setTimeout(() => {
+                if (!websocketReady && aiToggle.checked) {
+                    aiToggle.checked = false;
+                    aiStatus.textContent = "AI mode disabled: Could not connect to Python backend";
+                    aiStatus.style.color = "#d9534f";
+                }
+            }, 3000);
+        });
